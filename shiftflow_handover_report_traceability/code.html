@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=geist:wght@100..900&family=jetbrainsMono:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-surface-variant": "#45464d", "inverse-primary": "#bec6e0", "error": "#ba1a1a", "secondary-fixed-dim": "#93ccff", "primary-fixed-dim": "#bec6e0", "on-secondary-container": "#00476e", "error-container": "#ffdad6", "on-secondary": "#ffffff", "inverse-on-surface": "#eaf1ff", "surface-container-high": "#dce9ff", "on-primary": "#ffffff", "outline-variant": "#c6c6cd", "on-secondary-fixed": "#001d31", "surface-tint": "#565e74", "background": "#f8f9ff", "surface-container-low": "#eff4ff", "on-background": "#0b1c30", "on-error-container": "#93000a", "on-surface": "#0b1c30", "outline": "#76777d", "on-tertiary-fixed": "#002114", "surface-variant": "#d3e4fe", "on-tertiary": "#ffffff", "primary": "#000000", "on-primary-fixed": "#131b2e", "on-primary-fixed-variant": "#3f465c", "on-secondary-fixed-variant": "#004b73", "secondary": "#006398", "tertiary-fixed-dim": "#68dba9", "surface-bright": "#f8f9ff", "tertiary-fixed": "#85f8c4", "tertiary": "#000000", "surface-container-highest": "#d3e4fe", "tertiary-container": "#002114", "surface-container": "#e5eeff", "secondary-container": "#5bb8fe", "on-tertiary-fixed-variant": "#005137", "on-primary-container": "#7c839b", "primary-fixed": "#dae2fd", "primary-container": "#131b2e", "surface-container-lowest": "#ffffff", "surface-dim": "#cbdbf5", "on-error": "#ffffff", "secondary-fixed": "#cce5ff", "inverse-surface": "#213145", "on-tertiary-container": "#069669", "surface": "#f8f9ff" }, borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, spacing: { "space-base": "1rem", "max-content-width": "96rem", "space-sm": "0.5rem", "space-xxs": "0.125rem", "space-xs": "0.25rem", "space-2xl": "2rem", "space-lg": "1.25rem", "space-md": "0.75rem", "gutter-mobile": "0.75rem", "space-xl": "1.5rem", "sidebar-width": "16rem", "space-3xl": "3rem", "gutter-desktop": "1.25rem" }, fontFamily: { "body-lg": ["geist"], "title-md": ["geist"], "label-mono-xs": ["jetbrainsMono"], "body-sm": ["geist"], "headline-lg-mobile": ["geist"], "headline-xl-mobile": ["geist"], "title-sm": ["geist"], "label-caps": ["geist"], "label-mono": ["jetbrainsMono"], "body-md": ["geist"], "headline-sm": ["geist"], "headline-xl": ["geist"], "headline-lg": ["geist"] }, fontSize: { "body-lg": ["15px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" }], "title-md": ["15px", { "lineHeight": "22px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "label-mono-xs": ["10px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500" }], "body-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0em", "fontWeight": "400" }], "headline-lg-mobile": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "headline-xl-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "title-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "600" }], "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.06em", "fontWeight": "600" }], "label-mono": ["12px", { "lineHeight": "16px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "body-md": ["13px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }], "headline-sm": ["18px", { "lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "headline-xl": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600" }] } } } }</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-on-surface flex flex-col antialiased min-h-screen"><header class="fixed top-0 w-full z-50 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] pt-safe"><div class="h-20 px-gutter-mobile flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><button aria-label="Go back" class="min-w-[44px] min-h-[44px] flex items-center justify-center text-on-surface-variant hover:text-on-surface" onclick="history.back()"><span class="material-symbols-outlined text-[22px]">arrow_back</span></button><img alt="ShiftFlow Logo" class="h-8 w-auto object-contain shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1UVK6kO9wuRZJOPYVcFFb3ykKgPPJsQgF-v-eU_4TpQaiWf5nc4YNXgjNsgIYCjITeY-m-DqNaIWv4-Eik9p4y8JhuJ-Ufw6ZkSbJvA_4IzIHJ0TnC0GBh7YH38kRBVF9nL_CVDldP3SyzKmDFLUKw05s-gyRQvhRwkG39NNC14X_QG0KgTsxsiU4n09FPxBC7E3nYk1vXzO8iFphkMK1DtGYtMSaKALD1oqeG1Zmcmgg0heSYaU0IyBq0"/><div class="flex flex-col min-w-0"><div class="flex items-center gap-space-xs"><span class="font-title-md text-title-md text-on-surface truncate">ShiftFlow</span><span class="font-label-mono-xs text-label-mono-xs text-on-surface-variant">03 Sep 2026</span></div><span class="font-title-sm text-title-sm text-on-surface-variant truncate">Handover Audit Detail</span></div></div><div class="flex items-center gap-space-xs shrink-0"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full px-gutter-mobile pt-20 pb-safe bg-surface min-h-screen"><div class="flex flex-col w-full pb-10">
+<div class="flex flex-col gap-space-md py-space-sm">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<div class="flex flex-col min-w-0">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Shift Verification Report</span>
+<h1 class="font-headline-xl-mobile text-headline-xl-mobile text-on-surface tracking-tight">Shift Handover Report</h1>
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-mono-xs text-label-mono-xs mt-space-xxs">
+<span class="material-symbols-outlined text-[14px]">schedule</span>
+<span>03 September 2026 • 17:00 – 20:00 IST</span>
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container inline-block ml-space-xs"></span>
+<span class="text-on-tertiary-container font-label-mono-xs text-label-mono-xs uppercase">Audited</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs overflow-x-auto pb-1 md:pb-0">
+<button class="min-h-[36px] px-space-md bg-primary text-on-primary rounded-lg font-title-sm text-title-sm flex items-center gap-space-xs hover:bg-surface-tint active:scale-95 transition-all shadow-sm" onclick="handleDownloadPDF()">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>Download PDF</span>
+</button>
+<button class="min-h-[36px] px-space-sm bg-surface-container-lowest text-on-surface rounded-lg font-title-sm text-title-sm flex items-center gap-space-xs shadow-sm hover:bg-surface-container-low transition-all" onclick="window.print()">
+<span class="material-symbols-outlined text-[18px]">print</span>
+<span class="hidden sm:inline">Print</span>
+</button>
+<button class="min-h-[36px] px-space-sm bg-surface-container-lowest text-on-surface-variant rounded-lg font-title-sm text-title-sm flex items-center gap-space-xs shadow-sm hover:bg-surface-container-low transition-all" id="regenerate-btn" onclick="triggerRegenerate()">
+<span class="material-symbols-outlined text-[18px]" id="refresh-icon">refresh</span>
+<span class="hidden sm:inline">Regenerate</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-5 gap-space-xs pt-space-xs">
+<div class="bg-surface-container-lowest p-space-sm rounded-lg shadow-sm flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant">TOTAL EVENTS</span>
+<div class="flex items-baseline justify-between mt-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">24</span>
+<span class="font-label-mono-xs text-label-mono-xs text-on-surface-variant">100%</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-sm rounded-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-on-tertiary-container"></span>
+<span class="font-label-caps text-label-caps text-on-tertiary-container">COMPLETED</span>
+</div>
+<div class="flex items-baseline justify-between mt-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">12</span>
+<span class="font-label-mono-xs text-label-mono-xs text-on-tertiary-container">50%</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-sm rounded-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-label-caps text-label-caps text-secondary">IN PROGRESS</span>
+</div>
+<div class="flex items-baseline justify-between mt-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">6</span>
+<span class="font-label-mono-xs text-label-mono-xs text-secondary">25%</span>
+</div>
+</div>
+<div class="bg-error-container/40 p-space-sm rounded-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-error animate-pulse"></span>
+<span class="font-label-caps text-label-caps text-error">BLOCKERS</span>
+</div>
+<div class="flex items-baseline justify-between mt-space-xs">
+<span class="font-headline-sm text-headline-sm text-error font-semibold">2</span>
+<span class="font-label-mono-xs text-label-mono-xs text-error font-bold">URGENT</span>
+</div>
+</div>
+<div class="col-span-2 sm:col-span-1 bg-surface-container-lowest p-space-sm rounded-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-on-secondary-container"></span>
+<span class="font-label-caps text-label-caps text-on-secondary-container">WATCH-LIST</span>
+</div>
+<div class="flex items-baseline justify-between mt-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">4</span>
+<span class="font-label-mono-xs text-label-mono-xs text-on-secondary-container">17%</span>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-space-md bg-surface-container-lowest rounded-xl p-space-base shadow-sm relative overflow-hidden">
+<div class="flex items-start justify-between gap-space-sm mb-space-xs">
+<div class="flex items-center gap-space-xs">
+<div class="w-7 h-7 rounded-md bg-primary-container flex items-center justify-center text-primary-fixed">
+<span class="material-symbols-outlined text-[18px]">auto_awesome</span>
+</div>
+<div>
+<h2 class="font-title-md text-title-md text-on-surface">Shift Executive Summary</h2>
+<span class="font-label-mono-xs text-label-mono-xs text-on-surface-variant">Deterministic LLM Extraction • Run #8491</span>
+</div>
+</div>
+<span class="px-space-xs py-0.5 rounded bg-surface-container font-label-mono-xs text-label-mono-xs text-on-surface-variant">Validated</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface leading-relaxed mt-space-sm">
+      The shift handled 24 operational events across ticketing and incident systems. Twelve items were completed, six remain in progress, two require escalation, and four should be monitored by the next shift.
+    </p>
+<div class="mt-space-md p-space-sm rounded-lg bg-surface-container-low flex items-start gap-space-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-secondary mt-0.5 shrink-0">verified_user</span>
+<p class="font-label-mono-xs text-label-mono-xs leading-normal">
+<strong class="text-on-surface font-medium">Grounding Note:</strong> Synthesized strictly from 24 verified events in the selected shift window. Zero hallucination tolerance enforced via consensus checkpoint hash.
+      </p>
+</div>
+</div>
+<div class="mt-space-lg flex flex-col gap-space-lg">
+<section class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between px-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-on-tertiary-container"></span>
+<h3 class="font-title-md text-title-md text-on-surface">01 — Completed</h3>
+<span class="font-label-mono-xs text-label-mono-xs px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-medium">12 Events</span>
+</div>
+<span class="font-label-mono-xs text-label-mono-xs text-on-surface-variant">Resolved OK</span>
+</div>
+<div class="flex flex-col gap-space-xs">
+<div class="bg-surface-container-lowest rounded-lg p-space-base shadow-sm hover:shadow transition-shadow">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs flex-wrap mb-1">
+<span class="font-label-mono text-label-mono px-1.5 py-0.5 rounded bg-surface-container font-semibold text-on-surface">OPS-4801</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-low text-on-tertiary-container font-label-mono-xs text-label-mono-xs flex items-center gap-1 font-semibold">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Completed
+                </span>
+<span class="text-on-surface-variant font-label-mono-xs text-label-mono-xs">18:20 IST</span>
+</div>
+<h4 class="font-title-sm text-title-sm text-on-surface font-semibold">Payment API issue resolved successfully.</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Fixed latency spike caused by connection pool exhaustion during flash sale.</p>
+<div class="flex items-center gap-space-xs mt-space-sm text-on-surface-variant font-label-mono-xs text-label-mono-xs">
+<span class="material-symbols-outlined text-[14px]">link</span>
+<span>ticketing:OPS-4801</span>
+</div>
+</div>
+<button class="shrink-0 p-space-xs rounded bg-surface-container-low hover:bg-surface-container text-on-surface text-label-mono-xs font-label-mono-xs flex items-center gap-1" onclick="openDrawer('OPS-4801', 'Payment API issue resolved successfully.', 'Fixed latency spike caused by connection pool exhaustion during flash sale.', 'ticketing:OPS-4801', '18:20 IST', 'Completed')">
+<span>View Source</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-lg p-space-base shadow-sm hover:shadow transition-shadow">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs flex-wrap mb-1">
+<span class="font-label-mono text-label-mono px-1.5 py-0.5 rounded bg-surface-container font-semibold text-on-surface">INC-1092</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-low text-on-tertiary-container font-label-mono-xs text-label-mono-xs flex items-center gap-1 font-semibold">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Completed
+                </span>
+<span class="text-on-surface-variant font-label-mono-xs text-label-mono-xs">17:45 IST</span>
+</div>
+<h4 class="font-title-sm text-title-sm text-on-surface font-semibold">CDN Edge Cache Revalidation</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Purged stale manifests across APAC PoPs after release deployment #312.</p>
+<div class="flex items-center gap-space-xs mt-space-sm text-on-surface-variant font-label-mono-xs text-label-mono-xs">
+<span class="material-symbols-outlined text-[14px]">link</span>
+<span>incidents:INC-1092</span>
+</div>
+</div>
+<button class="shrink-0 p-space-xs rounded bg-surface-container-low hover:bg-surface-container text-on-surface text-label-mono-xs font-label-mono-xs flex items-center gap-1" onclick="openDrawer('INC-1092', 'CDN Edge Cache Revalidation', 'Purged stale manifests across APAC PoPs after release deployment #312.', 'incidents:INC-1092', '17:45 IST', 'Completed')">
+<span>View Source</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<section class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between px-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary"></span>
+<h3 class="font-title-md text-title-md text-on-surface">02 — In Progress</h3>
+<span class="font-label-mono-xs text-label-mono-xs px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-medium">6 Events</span>
+</div>
+<span class="font-label-mono-xs text-label-mono-xs text-secondary">Active Transition</span>
+</div>
+<div class="bg-surface-container-lowest rounded-lg p-space-base shadow-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs flex-wrap mb-1">
+<span class="font-label-mono text-label-mono px-1.5 py-0.5 rounded bg-surface-container font-semibold text-on-surface">OPS-4815</span>
+<span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-container font-label-mono-xs text-label-mono-xs flex items-center gap-1 font-semibold">
+<span class="material-symbols-outlined text-[14px]">sync</span> In Progress
+              </span>
+<span class="text-on-surface-variant font-label-mono-xs text-label-mono-xs">19:10 IST</span>
+</div>
+<h4 class="font-title-sm text-title-sm text-on-surface font-semibold">Database optimization is still in progress.</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Index rebuild on user_orders table currently at 64% completion.</p>
+<div class="w-full max-w-xs mt-space-sm flex flex-col gap-1">
+<div class="flex justify-between text-label-mono-xs font-label-mono-xs text-on-surface-variant">
+<span>Progress</span>
+<span class="font-semibold text-secondary">64%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary rounded-full" style="width: 64%;"></div>
+</div>
+</div>
+<div class="flex items-center gap-space-xs mt-space-sm text-on-surface-variant font-label-mono-xs text-label-mono-xs">
+<span class="material-symbols-outlined text-[14px]">link</span>
+<span>ticketing:OPS-4815</span>
+</div>
+</div>
+<button class="shrink-0 p-space-xs rounded bg-surface-container-low hover:bg-surface-container text-on-surface text-label-mono-xs font-label-mono-xs flex items-center gap-1" onclick="openDrawer('OPS-4815', 'Database optimization is still in progress.', 'Index rebuild on user_orders table currently at 64% completion.', 'ticketing:OPS-4815', '19:10 IST', 'In Progress')">
+<span>View Source</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+<section class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between px-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-error animate-ping"></span>
+<h3 class="font-title-md text-title-md text-error font-semibold">03 — Blockers / Escalations</h3>
+<span class="font-label-mono-xs text-label-mono-xs px-1.5 py-0.5 rounded bg-error-container text-on-error-container font-bold">2 Action Required</span>
+</div>
+<span class="font-label-mono-xs text-label-mono-xs text-error font-semibold">CRITICAL</span>
+</div>
+<div class="bg-surface-container-lowest rounded-lg p-space-base shadow-md relative overflow-hidden bg-gradient-to-r from-error-container/20 to-transparent">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs flex-wrap mb-1">
+<span class="font-label-mono text-label-mono px-1.5 py-0.5 rounded bg-error text-on-error font-bold">OPS-4821</span>
+<span class="px-2 py-0.5 rounded-full bg-error-container text-error font-label-mono-xs text-label-mono-xs flex items-center gap-1 font-bold">
+<span class="material-symbols-outlined text-[14px]">error</span> Blocked
+              </span>
+<span class="text-error font-label-mono-xs text-label-mono-xs font-bold">P1 Escalation Triggered</span>
+<span class="text-on-surface-variant font-label-mono-xs text-label-mono-xs">19:42 IST</span>
+</div>
+<h4 class="font-title-sm text-title-sm text-on-surface font-semibold">Mobile login failures remain unresolved and require backend on-call attention.</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Auth token validation failing on iOS v4.12 clients; P1 escalation triggered.</p>
+<div class="flex items-center gap-space-sm mt-space-sm">
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-mono-xs text-label-mono-xs">
+<span class="material-symbols-outlined text-[14px]">link</span>
+<span>ticketing:OPS-4821</span>
+</div>
+<span class="text-outline-variant">•</span>
+<span class="font-label-mono-xs text-label-mono-xs text-error font-medium">On-Call Paged: Backend Team</span>
+</div>
+</div>
+<button class="shrink-0 px-space-sm py-space-xs rounded bg-error text-on-error hover:bg-on-error-container font-label-mono-xs text-label-mono-xs flex items-center gap-1 shadow-sm active:scale-95 transition-all" onclick="openDrawer('OPS-4821', 'Mobile login failures remain unresolved and require backend on-call attention.', 'Auth token validation failing on iOS v4.12 clients; P1 escalation triggered.', 'ticketing:OPS-4821', '19:42 IST', 'Blocked')">
+<span>View Source</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+<section class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between px-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary-container"></span>
+<h3 class="font-title-md text-title-md text-on-surface">04 — Watch-List</h3>
+<span class="font-label-mono-xs text-label-mono-xs px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-medium">4 Events</span>
+</div>
+<span class="font-label-mono-xs text-label-mono-xs text-on-surface-variant">Incoming Shift Focus</span>
+</div>
+<div class="bg-surface-container-lowest rounded-lg p-space-base shadow-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs flex-wrap mb-1">
+<span class="font-label-mono text-label-mono px-1.5 py-0.5 rounded bg-surface-container font-semibold text-on-surface">OPS-4830</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-secondary font-label-mono-xs text-label-mono-xs flex items-center gap-1 font-semibold">
+<span class="material-symbols-outlined text-[14px]">visibility</span> Watch
+              </span>
+<span class="text-on-surface-variant font-label-mono-xs text-label-mono-xs">19:55 IST</span>
+</div>
+<h4 class="font-title-sm text-title-sm text-on-surface font-semibold">Monitor elevated server CPU usage during the next shift.</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Worker node pool 3 running at 82% average utilization following batch ingest.</p>
+<div class="flex items-center gap-space-xs mt-space-sm text-on-surface-variant font-label-mono-xs text-label-mono-xs">
+<span class="material-symbols-outlined text-[14px]">link</span>
+<span>ticketing:OPS-4830</span>
+</div>
+</div>
+<button class="shrink-0 p-space-xs rounded bg-surface-container-low hover:bg-surface-container text-on-surface text-label-mono-xs font-label-mono-xs flex items-center gap-1" onclick="openDrawer('OPS-4830', 'Monitor elevated server CPU usage during the next shift.', 'Worker node pool 3 running at 82% average utilization following batch ingest.', 'ticketing:OPS-4830', '19:55 IST', 'Watch')">
+<span>View Source</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+<div class="bg-surface-container-lowest rounded-xl p-space-lg text-center flex flex-col items-center justify-center gap-space-xs shadow-sm">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">eco</span>
+</div>
+<span class="font-title-sm text-title-sm text-on-surface font-semibold">Nothing to report</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-sm">No environmental violations or safety threshold alerts logged in this shift window.</p>
+<span class="font-label-mono-xs text-label-mono-xs px-2 py-0.5 rounded bg-surface-container-low text-on-tertiary-container mt-space-xs">ISO-14001 Compliant</span>
+</div>
+</div>
+<div class="fixed inset-0 bg-inverse-surface/40 backdrop-blur-sm z-50 transition-opacity duration-300 opacity-0 pointer-events-none flex justify-end" id="drawer-overlay">
+<div class="w-full max-w-md bg-surface-container-lowest h-full shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300 ease-out overflow-y-auto" id="drawer-content">
+<div class="p-space-base bg-surface-container-low flex items-center justify-between sticky top-0 z-10">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[20px] text-secondary">database</span>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">Source Telemetry Trace</h3>
+<span class="font-label-mono-xs text-label-mono-xs text-on-surface-variant">Deterministic Audit Record</span>
+</div>
+</div>
+<button class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-on-surface" onclick="closeDrawer()">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<div class="p-space-base flex flex-col gap-space-md">
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant">RECORD IDENTIFIER</span>
+<span class="px-2 py-0.5 rounded bg-error text-on-error font-label-mono-xs text-label-mono-xs font-semibold" id="drawer-badge">Blocked</span>
+</div>
+<span class="font-label-mono text-label-mono font-bold text-on-surface text-base" id="drawer-id">OPS-4821</span>
+<span class="font-label-mono-xs text-label-mono-xs text-on-surface-variant" id="drawer-source">ticketing (Jira / Linear) • Timestamp: 03 Sep 2026, 19:42 IST</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-label-caps text-label-caps text-on-surface-variant">ORIGINAL EVENT SYNOPSIS</span>
+<p class="font-body-md text-body-md text-on-surface font-medium bg-surface-container-lowest p-space-sm rounded" id="drawer-title">
+            Mobile login failures remain unresolved and require backend on-call attention.
+          </p>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-label-caps text-label-caps text-on-surface-variant">RAW PAYLOAD EXCERPT</span>
+<div class="bg-inverse-surface p-space-sm rounded-lg font-label-mono text-label-mono text-inverse-on-surface overflow-x-auto text-xs leading-relaxed">
+<code>error: 401_unauthorized client_version: 4.12-ios<br/>endpoint: /v2/auth/refresh<br/>stack_ref: trace-id-99201a-88</code>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-space-sm bg-surface-container-low p-space-sm rounded-lg">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant">VERIFICATION HASH</span>
+<span class="font-label-mono-xs text-label-mono-xs text-on-surface font-semibold mt-1">#SHA-9f82a1</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant">INCIDENT STATUS</span>
+<span class="font-label-mono-xs text-label-mono-xs text-error font-semibold mt-1">Open / Escalated</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-xs mt-space-sm">
+<span class="font-label-caps text-label-caps text-on-surface-variant">TRACE AUDIT LOG</span>
+<div class="flex items-center gap-space-xs text-label-mono-xs font-label-mono-xs text-on-surface-variant">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span>19:42:10 IST: System Ingestion Verified</span>
+</div>
+<div class="flex items-center gap-space-xs text-label-mono-xs font-label-mono-xs text-on-surface-variant">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+<span>19:45:00 IST: PagerDuty Incident #8410 Triggered</span>
+</div>
+<div class="flex items-center gap-space-xs text-label-mono-xs font-label-mono-xs text-on-surface-variant">
+<span class="w-2 h-2 rounded-full bg-on-surface-variant"></span>
+<span>19:50:22 IST: Included in Automated Shift Synthesis</span>
+</div>
+</div>
+<div class="mt-auto pt-space-md flex gap-space-xs">
+<button class="flex-1 py-space-sm rounded-lg bg-surface-container text-on-surface font-title-sm text-title-sm flex items-center justify-center gap-1 hover:bg-surface-container-high transition-colors" id="copy-btn" onclick="copyHash()">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+<span>Copy Hash</span>
+</button>
+<button class="flex-1 py-space-sm rounded-lg bg-primary text-on-primary font-title-sm text-title-sm hover:bg-surface-tint transition-colors" onclick="closeDrawer()">
+            Close Trace
+          </button>
+</div>
+</div>
+</div>
+</div>
+<div class="fixed bottom-6 left-1/2 -translate-x-1/2 px-space-base py-space-sm bg-inverse-surface text-inverse-on-surface rounded-full shadow-lg font-label-mono-xs text-label-mono-xs flex items-center gap-space-xs opacity-0 pointer-events-none transition-opacity duration-300 z-50" id="toast">
+<span class="material-symbols-outlined text-[16px] text-tertiary-fixed">check_circle</span>
+<span id="toast-msg">Notification message</span>
+</div>
+</div>
+<script>
+  function openDrawer(id, title, details, source, time, status) {
+    const overlay = document.getElementById('drawer-overlay');
+    const content = document.getElementById('drawer-content');
+    
+    document.getElementById('drawer-id').textContent = id;
+    document.getElementById('drawer-title').textContent = title;
+    document.getElementById('drawer-source').textContent = source + ' • Timestamp: ' + time;
+    
+    const badge = document.getElementById('drawer-badge');
+    badge.textContent = status;
+    if (status === 'Completed') {
+      badge.className = 'px-2 py-0.5 rounded bg-surface-container text-on-tertiary-container font-label-mono-xs text-label-mono-xs font-semibold';
+    } else if (status === 'In Progress') {
+      badge.className = 'px-2 py-0.5 rounded bg-secondary-fixed text-on-secondary-container font-label-mono-xs text-label-mono-xs font-semibold';
+    } else if (status === 'Watch') {
+      badge.className = 'px-2 py-0.5 rounded bg-surface-container-high text-secondary font-label-mono-xs text-label-mono-xs font-semibold';
+    } else {
+      badge.className = 'px-2 py-0.5 rounded bg-error text-on-error font-label-mono-xs text-label-mono-xs font-semibold';
+    }
+
+    overlay.classList.remove('pointer-events-none', 'opacity-0');
+    overlay.classList.add('opacity-100');
+    content.classList.remove('translate-x-full');
+    content.classList.add('translate-x-0');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDrawer() {
+    const overlay = document.getElementById('drawer-overlay');
+    const content = document.getElementById('drawer-content');
+    
+    overlay.classList.remove('opacity-100');
+    overlay.classList.add('opacity-0', 'pointer-events-none');
+    content.classList.remove('translate-x-0');
+    content.classList.add('translate-x-full');
+    document.body.style.overflow = '';
+  }
+
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    const toastMsg = document.getElementById('toast-msg');
+    toastMsg.textContent = msg;
+    toast.classList.remove('opacity-0', 'pointer-events-none');
+    toast.classList.add('opacity-100');
+    setTimeout(() => {
+      toast.classList.remove('opacity-100');
+      toast.classList.add('opacity-0', 'pointer-events-none');
+    }, 2800);
+  }
+
+  function copyHash() {
+    navigator.clipboard?.writeText('#SHA-9f82a1');
+    showToast('Verification Hash #SHA-9f82a1 copied to clipboard');
+  }
+
+  function handleDownloadPDF() {
+    showToast('Generating signed handover PDF bundle...');
+    setTimeout(() => {
+      showToast('ShiftHandover_20260903_1700_2000.pdf ready');
+    }, 1200);
+  }
+
+  function triggerRegenerate() {
+    const icon = document.getElementById('refresh-icon');
+    icon.classList.add('animate-spin');
+    showToast('Re-synthesizing events across Kafka ingestion logs...');
+    setTimeout(() => {
+      icon.classList.remove('animate-spin');
+      showToast('Report updated: All 24 events reconciled');
+    }, 1500);
+  }
+
+  document.getElementById('drawer-overlay').addEventListener('click', function(e) {
+    if (e.target === this) {
+      closeDrawer();
+    }
+  });
+</script></main></body></html>

@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=geist:wght@100..900&family=jetbrainsMono:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-surface-variant": "#45464d", "inverse-primary": "#bec6e0", "error": "#ba1a1a", "secondary-fixed-dim": "#93ccff", "primary-fixed-dim": "#bec6e0", "on-secondary-container": "#00476e", "error-container": "#ffdad6", "on-secondary": "#ffffff", "inverse-on-surface": "#eaf1ff", "surface-container-high": "#dce9ff", "on-primary": "#ffffff", "outline-variant": "#c6c6cd", "on-secondary-fixed": "#001d31", "surface-tint": "#565e74", "background": "#f8f9ff", "surface-container-low": "#eff4ff", "on-background": "#0b1c30", "on-error-container": "#93000a", "on-surface": "#0b1c30", "outline": "#76777d", "on-tertiary-fixed": "#002114", "surface-variant": "#d3e4fe", "on-tertiary": "#ffffff", "primary": "#000000", "on-primary-fixed": "#131b2e", "on-primary-fixed-variant": "#3f465c", "on-secondary-fixed-variant": "#004b73", "secondary": "#006398", "tertiary-fixed-dim": "#68dba9", "surface-bright": "#f8f9ff", "tertiary-fixed": "#85f8c4", "tertiary": "#000000", "surface-container-highest": "#d3e4fe", "tertiary-container": "#002114", "surface-container": "#e5eeff", "secondary-container": "#5bb8fe", "on-tertiary-fixed-variant": "#005137", "on-primary-container": "#7c839b", "primary-fixed": "dae2fd", "primary-container": "#131b2e", "surface-container-lowest": "#ffffff", "surface-dim": "#cbdbf5", "on-error": "#ffffff", "secondary-fixed": "#cce5ff", "inverse-surface": "#213145", "on-tertiary-container": "#069669", "surface": "#f8f9ff" }, borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, spacing: { "space-base": "1rem", "max-content-width": "96rem", "space-sm": "0.5rem", "space-xxs": "0.125rem", "space-xs": "0.25rem", "space-2xl": "2rem", "space-lg": "1.25rem", "space-md": "0.75rem", "gutter-mobile": "0.75rem", "space-xl": "1.5rem", "sidebar-width": "16rem", "space-3xl": "3rem", "gutter-desktop": "1.25rem" }, fontFamily: { "body-lg": ["geist"], "title-md": ["geist"], "label-mono-xs": ["jetbrainsMono"], "body-sm": ["geist"], "headline-lg-mobile": ["geist"], "headline-xl-mobile": ["geist"], "title-sm": ["geist"], "label-caps": ["geist"], "label-mono": ["jetbrainsMono"], "body-md": ["geist"], "headline-sm": ["geist"], "headline-xl": ["geist"], "headline-lg": ["geist"] }, fontSize: { "body-lg": ["15px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" }], "title-md": ["15px", { "lineHeight": "22px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "label-mono-xs": ["10px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500" }], "body-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0em", "fontWeight": "400" }], "headline-lg-mobile": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "headline-xl-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "title-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "600" }], "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.06em", "fontWeight": "600" }], "label-mono": ["12px", { "lineHeight": "16px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "body-md": ["13px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }], "headline-sm": ["18px", { "lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "headline-xl": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600" }] } } } }</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-on-surface flex flex-col antialiased min-h-screen"><header class="fixed top-0 w-full z-50 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] pt-safe"><div class="h-20 px-gutter-mobile flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><button aria-label="Open navigation drawer" class="min-w-[44px] min-h-[44px] flex items-center justify-center text-on-surface-variant hover:text-on-surface"><span class="material-symbols-outlined text-[22px]">menu</span></button><img alt="ShiftFlow Logo" class="h-8 w-auto object-contain shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1UVK6kO9wuRZJOPYVcFFb3ykKgPPJsQgF-v-eU_4TpQaiWf5nc4YNXgjNsgIYCjITeY-m-DqNaIWv4-Eik9p4y8JhuJ-Ufw6ZkSbJvA_4IzIHJ0TnC0GBh7YH38kRBVF9nL_CVDldP3SyzKmDFLUKw05s-gyRQvhRwkG39NNC14X_QG0KgTsxsiU4n09FPxBC7E3nYk1vXzO8iFphkMK1DtGYtMSaKALD1oqeG1Zmcmgg0heSYaU0IyBq0"/><div class="flex flex-col min-w-0"><div class="flex items-center gap-space-xs"><span class="font-title-md text-title-md text-on-surface truncate">ShiftFlow</span><span class="font-label-mono-xs text-label-mono-xs text-on-surface-variant">03 Sep 2026</span></div><span class="font-title-sm text-title-sm text-on-surface-variant truncate">Dashboard</span></div></div><div class="flex items-center gap-space-xs shrink-0"><div class="hidden sm:flex items-center gap-space-xxs px-space-xs py-space-xxs rounded bg-tertiary-fixed/30 text-on-tertiary-fixed-variant font-label-mono-xs text-label-mono-xs"><span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span><span>All Systems Operational</span></div><button aria-label="Notifications" class="relative min-w-[44px] min-h-[44px] flex items-center justify-center text-on-surface-variant hover:text-on-surface"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-error ring-2 ring-surface-container-lowest"></span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full px-gutter-mobile pt-20 pb-24 bg-surface min-h-screen"><div class="flex flex-col w-full gap-space-lg">
+<!-- Dashboard Context Greeting Banner -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md p-space-base rounded-xl bg-surface-container-low">
+<div class="flex flex-col gap-space-xxs min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="px-space-xs py-space-xxs rounded bg-secondary-container text-on-secondary-container font-label-mono-xs text-label-mono-xs uppercase tracking-wider">Ops Console</span>
+<span class="font-label-mono-xs text-label-mono-xs text-on-surface-variant">Plant-Alpha • SRE Ward</span>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Shift Handover Dashboard</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Turn shift activity into a clear, traceable handover in seconds.</p>
+</div>
+<div class="flex items-center gap-space-xs shrink-0 self-start sm:self-center">
+<button aria-label="Sync shift data" class="flex items-center gap-space-xs px-space-md py-space-xs rounded bg-surface-container-highest text-on-surface font-label-mono text-label-mono active:scale-95 transition-transform" id="refreshDataBtn">
+<span class="material-symbols-outlined text-[18px] text-secondary">sync</span>
+<span>Sync Logs</span>
+</button>
+<button aria-label="Export shifts as CSV" class="flex items-center gap-space-xs px-space-md py-space-xs rounded bg-surface-container-highest text-on-surface font-label-mono text-label-mono active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">file_download</span>
+<span>Export</span>
+</button>
+</div>
+</div>
+<!-- Operational KPI Metrics (Responsive Micro-Grid) -->
+<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-space-sm">
+<!-- KPI 1: Events Processed -->
+<div class="col-span-2 sm:col-span-1 flex flex-col justify-between p-space-base rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between gap-space-xs">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Events Processed</span>
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-secondary shrink-0">
+<span class="material-symbols-outlined text-[18px]">layers</span>
+</div>
+</div>
+<div class="flex items-baseline justify-between mt-space-md">
+<span class="font-headline-xl text-headline-xl text-on-surface">24</span>
+<div class="flex items-center gap-space-xxs px-space-xs py-space-xxs rounded bg-tertiary-fixed/30 text-on-tertiary-fixed-variant font-label-mono-xs text-label-mono-xs">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span>
+<span>+12%</span>
+</div>
+</div>
+<span class="font-label-mono-xs text-label-mono-xs text-on-surface-variant mt-space-xs">vs. previous shift</span>
+</div>
+<!-- KPI 2: Completed -->
+<div class="flex flex-col justify-between p-space-base rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between gap-space-xs">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Completed</span>
+<div class="w-8 h-8 rounded-lg bg-tertiary-fixed/30 flex items-center justify-center text-on-tertiary-container shrink-0">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+</div>
+</div>
+<div class="flex items-baseline justify-between mt-space-md">
+<span class="font-headline-xl text-headline-xl text-on-surface">12</span>
+<span class="px-space-xs py-space-xxs rounded bg-tertiary-fixed/40 text-on-tertiary-container font-label-mono-xs text-label-mono-xs">Resolved</span>
+</div>
+<span class="font-label-mono-xs text-label-mono-xs text-on-surface-variant mt-space-xs">50% of shift scope</span>
+</div>
+<!-- KPI 3: In Progress -->
+<div class="flex flex-col justify-between p-space-base rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between gap-space-xs">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">In Progress</span>
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-on-secondary-container shrink-0">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+</div>
+</div>
+<div class="flex items-baseline justify-between mt-space-md">
+<span class="font-headline-xl text-headline-xl text-on-surface">6</span>
+<span class="px-space-xs py-space-xxs rounded bg-surface-container-high text-on-secondary-container font-label-mono-xs text-label-mono-xs">Ongoing</span>
+</div>
+<span class="font-label-mono-xs text-label-mono-xs text-on-surface-variant mt-space-xs">Active dev tickets</span>
+</div>
+<!-- KPI 4: Blockers -->
+<div class="flex flex-col justify-between p-space-base rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between gap-space-xs">
+<span class="font-label-caps text-label-caps text-error uppercase">Blockers</span>
+<div class="w-8 h-8 rounded-lg bg-error-container flex items-center justify-center text-error shrink-0">
+<span class="material-symbols-outlined text-[18px]">warning</span>
+</div>
+</div>
+<div class="flex items-baseline justify-between mt-space-md">
+<span class="font-headline-xl text-headline-xl text-error">2</span>
+<span class="px-space-xs py-space-xxs rounded bg-error-container text-on-error-container font-label-mono-xs text-label-mono-xs">Action Req.</span>
+</div>
+<span class="font-label-mono-xs text-label-mono-xs text-on-surface-variant mt-space-xs">High operational impact</span>
+</div>
+<!-- KPI 5: Watch-list -->
+<div class="flex flex-col justify-between p-space-base rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between gap-space-xs">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Watch-list</span>
+<div class="w-8 h-8 rounded-lg bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed-variant shrink-0">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</div>
+</div>
+<div class="flex items-baseline justify-between mt-space-md">
+<span class="font-headline-xl text-headline-xl text-on-surface">4</span>
+<span class="px-space-xs py-space-xxs rounded bg-secondary-fixed text-on-secondary-fixed font-label-mono-xs text-label-mono-xs">Next Shift</span>
+</div>
+<span class="font-label-mono-xs text-label-mono-xs text-on-surface-variant mt-space-xs">Monitored telemetry</span>
+</div>
+</div>
+<!-- CURRENT SHIFT FOCUS CARD -->
+<div class="relative overflow-hidden rounded-xl bg-surface-container-lowest shadow-sm p-space-base sm:p-space-lg">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="flex flex-col gap-space-xs min-w-0">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Shift Delta State</span>
+<div class="inline-flex items-center gap-space-xxs px-space-xs py-space-xxs rounded-full bg-tertiary-fixed/30 text-on-tertiary-container font-label-mono-xs text-label-mono-xs">
+<span class="w-2 h-2 rounded-full bg-on-tertiary-container animate-pulse"></span>
+<span>Active Monitoring</span>
+</div>
+</div>
+<div class="flex flex-wrap items-baseline gap-x-space-md gap-y-space-xxs">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Current Shift</h2>
+<span class="font-label-mono text-label-mono text-secondary font-semibold">03 Sep 2026 • 17:00 – 20:00 IST</span>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-space-md mt-space-sm">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Duration</span>
+<span class="font-title-sm text-title-sm text-on-surface">3h 00m</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Events Processed</span>
+<span class="font-title-sm text-title-sm text-on-surface">24 events</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Connected Sources</span>
+<span class="font-title-sm text-title-sm text-on-surface flex items-center gap-space-xxs">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>
+              3 active (Ticketing, Incidents, Slack)
+            </span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Last Generated</span>
+<span class="font-label-mono text-label-mono text-on-surface">19:58 IST</span>
+</div>
+</div>
+</div>
+<!-- Action Card Link -->
+<div class="flex flex-col sm:flex-row md:flex-col gap-space-xs shrink-0 self-stretch md:self-center">
+<a class="inline-flex items-center justify-center gap-space-xs px-space-lg py-space-sm rounded bg-primary text-on-primary font-title-sm text-title-sm shadow hover:bg-on-surface-variant active:scale-95 transition-all text-center" href="#generate-handover">
+<span>Generate Handover</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+<span class="text-center font-label-mono-xs text-label-mono-xs text-on-surface-variant">Auto-assembles in ~15s</span>
+</div>
+</div>
+</div>
+<!-- Operational Live Visual Timeline (ACTIVITY OVERVIEW) -->
+<div class="flex flex-col rounded-xl bg-surface-container-lowest shadow-sm p-space-base sm:p-space-lg gap-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[20px] text-secondary">show_chart</span>
+<h3 class="font-title-md text-title-md text-on-surface">Activity Overview</h3>
+<span class="font-label-mono-xs text-label-mono-xs px-space-xs py-space-xxs rounded bg-surface-container-high text-on-secondary-container">17:00 - 20:00 IST</span>
+</div>
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-space-xxs font-label-mono-xs text-label-mono-xs text-on-surface-variant">
+<span class="w-2.5 h-2.5 rounded-sm bg-secondary"></span>
+<span>Traffic Rate</span>
+</div>
+<div class="flex items-center gap-space-xxs font-label-mono-xs text-label-mono-xs text-on-surface-variant">
+<span class="w-2.5 h-2.5 rounded-sm bg-error"></span>
+<span>Critical Spikes</span>
+</div>
+</div>
+</div>
+<!-- Timeline Chart Container with SVG & Hover Cards -->
+<div class="relative w-full overflow-x-auto">
+<div class="min-w-[560px] flex flex-col gap-space-xs pt-space-xs">
+<!-- Live SVG Spike Waveform -->
+<div class="relative h-44 w-full bg-surface-container-low rounded-lg p-space-xs flex flex-col justify-end">
+<!-- Background Grid Lines -->
+<div class="absolute inset-0 flex flex-col justify-between p-space-sm pointer-events-none opacity-40">
+<div class="w-full h-px bg-surface-tint/20"></div>
+<div class="w-full h-px bg-surface-tint/20"></div>
+<div class="w-full h-px bg-surface-tint/20"></div>
+</div>
+<!-- Peak 1 Annotation (18:20 Payment API) -->
+<div class="absolute left-[44%] top-4 z-10 flex flex-col items-center pointer-events-auto group cursor-pointer">
+<div class="px-space-xs py-space-xxs rounded bg-error-container text-on-error-container font-label-mono-xs text-label-mono-xs shadow flex items-center gap-space-xxs">
+<span class="w-1.5 h-1.5 rounded-full bg-error animate-ping"></span>
+<span>18:20 Peak: Payment API Blocker</span>
+</div>
+<div class="w-px h-10 bg-error border-dashed border-error"></div>
+</div>
+<!-- Peak 2 Annotation (19:42 Mobile Login Surge) -->
+<div class="absolute left-[88%] top-8 z-10 flex flex-col items-center pointer-events-auto group cursor-pointer">
+<div class="px-space-xs py-space-xxs rounded bg-secondary-container text-on-secondary-container font-label-mono-xs text-label-mono-xs shadow flex items-center gap-space-xxs">
+<span class="material-symbols-outlined text-[12px]">bolt</span>
+<span>19:42 Mobile Login Latency</span>
+</div>
+<div class="w-px h-12 bg-secondary border-dashed border-secondary"></div>
+</div>
+<!-- The Vector Curve -->
+<svg class="w-full h-32 overflow-visible" preserveaspectratio="none" viewbox="0 0 700 130">
+<defs>
+<lineargradient id="shiftGradient" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#006398" stop-opacity="0.25"></stop>
+<stop offset="100%" stop-color="#006398" stop-opacity="0.0"></stop>
+</lineargradient>
+</defs>
+<!-- Area fill -->
+<path d="M 0 115 
+                     L 58 108 
+                     L 116 100 
+                     L 175 92 
+                     L 233 80 
+                     L 290 98 
+                     L 310 18 
+                     L 330 75 
+                     L 408 88 
+                     L 466 94 
+                     L 525 82 
+                     L 583 90 
+                     L 616 26 
+                     L 645 80 
+                     L 700 85 
+                     L 700 130 
+                     L 0 130 Z" fill="url(#shiftGradient)"></path>
+<!-- Line Stroke -->
+<path d="M 0 115 
+                     L 58 108 
+                     L 116 100 
+                     L 175 92 
+                     L 233 80 
+                     L 290 98 
+                     L 310 18 
+                     L 330 75 
+                     L 408 88 
+                     L 466 94 
+                     L 525 82 
+                     L 583 90 
+                     L 616 26 
+                     L 645 80 
+                     L 700 85" fill="none" stroke="#006398" stroke-linecap="round" stroke-width="2.5"></path>
+<!-- Highlight Dots on Spikes -->
+<circle cx="310" cy="18" fill="#ba1a1a" r="4.5" stroke="#ffffff" stroke-width="2"></circle>
+<circle cx="616" cy="26" fill="#006398" r="4.5" stroke="#ffffff" stroke-width="2"></circle>
+</svg>
+</div>
+<!-- Timestamp Axes Labels -->
+<div class="flex justify-between items-center px-space-xs font-label-mono-xs text-label-mono-xs text-on-surface-variant">
+<span>17:00</span>
+<span>17:30</span>
+<span>18:00</span>
+<span class="text-error font-semibold">18:30</span>
+<span>19:00</span>
+<span class="text-secondary font-semibold">19:30</span>
+<span>20:00 IST</span>
+</div>
+</div>
+</div>
+<!-- Active Incident Strip (Context linking back to spikes) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm pt-space-xs">
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-low">
+<div class="flex items-center gap-space-xs min-w-0">
+<span class="w-2 h-2 rounded-full bg-error shrink-0"></span>
+<div class="flex flex-col min-w-0">
+<span class="font-title-sm text-title-sm text-on-surface truncate">ERR-4029: Gateway 504 on /pay-v2</span>
+<span class="font-label-mono-xs text-label-mono-xs text-on-surface-variant">Root-cause isolated to db pooling</span>
+</div>
+</div>
+<span class="px-space-xs py-space-xxs rounded bg-error-container text-on-error-container font-label-mono-xs text-label-mono-xs shrink-0">Handed Over</span>
+</div>
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-low">
+<div class="flex items-center gap-space-xs min-w-0">
+<span class="w-2 h-2 rounded-full bg-secondary shrink-0"></span>
+<div class="flex flex-col min-w-0">
+<span class="font-title-sm text-title-sm text-on-surface truncate">SYS-882: Auth Cache Eviction Burst</span>
+<span class="font-label-mono-xs text-label-mono-xs text-on-surface-variant">Auto-scaled Redis nodes at 19:48</span>
+</div>
+</div>
+<span class="px-space-xs py-space-xxs rounded bg-tertiary-fixed/30 text-on-tertiary-container font-label-mono-xs text-label-mono-xs shrink-0">Mitigated</span>
+</div>
+</div>
+</div>
+<!-- Operational Audit & Shift Leads Module -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<!-- Outgoing Lead -->
+<div class="flex items-center gap-space-md p-space-base rounded-xl bg-surface-container-lowest shadow-sm">
+<div class="relative shrink-0">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest flex items-center justify-center font-title-md text-title-md text-on-surface">
+          AR
+        </div>
+<span class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-on-tertiary-container ring-2 ring-surface-container-lowest"></span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Outgoing Lead (Sign-off)</span>
+<span class="font-title-md text-title-md text-on-surface truncate">Anya R. • Level 3 SRE</span>
+<span class="font-label-mono-xs text-label-mono-xs text-on-surface-variant">Ready for transition check</span>
+</div>
+</div>
+<!-- Incoming Lead -->
+<div class="flex items-center gap-space-md p-space-base rounded-xl bg-surface-container-lowest shadow-sm">
+<div class="relative shrink-0">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest flex items-center justify-center font-title-md text-title-md text-on-surface">
+          MK
+        </div>
+<span class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-secondary ring-2 ring-surface-container-lowest"></span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Incoming Lead</span>
+<span class="font-title-md text-title-md text-on-surface truncate">Marcus K. • Shift Sup.</span>
+<span class="font-label-mono-xs text-label-mono-xs text-on-surface-variant">Checked in 19:50 IST</span>
+</div>
+</div>
+<!-- Shift Checklist Status -->
+<div class="flex flex-col justify-between p-space-base rounded-xl bg-surface-container-lowest shadow-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Handover Verification</span>
+<span class="font-label-mono-xs text-label-mono-xs text-on-tertiary-container font-semibold">10/12 Tasks Ready</span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-2 my-space-xs overflow-hidden">
+<div class="bg-secondary h-full rounded-full w-[83%]"></div>
+</div>
+<span class="font-label-mono-xs text-label-mono-xs text-on-surface-variant">Pending dual crypt-signature</span>
+</div>
+</div>
+<!-- RECENT HANDOVERS SECTION -->
+<div class="flex flex-col rounded-xl bg-surface-container-lowest shadow-sm p-space-base sm:p-space-lg gap-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">Recent Handovers</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Audit-ready historical shifts and generation artifacts</p>
+</div>
+<!-- Tab Filter Chips -->
+<div class="flex items-center gap-space-xxs p-space-xxs rounded-lg bg-surface-container-low" role="tablist">
+<button aria-selected="true" class="px-space-sm py-space-xxs rounded bg-surface-container-lowest shadow-sm text-on-surface font-label-mono-xs text-label-mono-xs" role="tab">All Shifts</button>
+<button aria-selected="false" class="px-space-sm py-space-xxs rounded text-on-surface-variant hover:text-on-surface font-label-mono-xs text-label-mono-xs" role="tab">Blockers Flagged (2)</button>
+<button aria-selected="false" class="px-space-sm py-space-xxs rounded text-on-surface-variant hover:text-on-surface font-label-mono-xs text-label-mono-xs" role="tab">Archived</button>
+</div>
+</div>
+<!-- Handover Records Stream -->
+<div class="flex flex-col gap-space-sm">
+<!-- Row 1: Ready Handover (Current Shift Delta) -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between p-space-md rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors gap-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center gap-space-md min-w-0">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-secondary shrink-0">
+<span class="material-symbols-outlined text-[20px]">assignment_turned_in</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="font-title-sm text-title-sm text-on-surface font-semibold">Shift: 03 Sep · 17:00–20:00 IST</span>
+<span class="px-space-xs py-space-xxs rounded bg-tertiary-fixed/40 text-on-tertiary-container font-label-mono-xs text-label-mono-xs font-semibold">Ready</span>
+</div>
+<div class="flex flex-wrap items-center gap-x-space-md gap-y-space-xxs mt-space-xxs font-label-mono-xs text-label-mono-xs text-on-surface-variant">
+<span>Events: <strong class="text-on-surface">24</strong></span>
+<span class="text-error font-semibold flex items-center gap-space-xxs">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+                2 Blockers
+              </span>
+<span>Generated: 19:58 IST</span>
+<span class="hidden sm:inline">Author: Anya R.</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-xs self-end lg:self-center shrink-0">
+<button aria-label="View Handover 17:00-20:00" class="flex items-center gap-space-xxs px-space-md py-space-xs rounded bg-surface-container-highest hover:bg-surface-container-high text-on-surface font-title-sm text-title-sm transition-colors active:scale-95">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+<span>View</span>
+</button>
+<button aria-label="Download PDF handover 17:00-20:00" class="flex items-center gap-space-xxs px-space-md py-space-xs rounded bg-primary text-on-primary font-title-sm text-title-sm hover:bg-on-surface-variant transition-colors active:scale-95 shadow-sm">
+<span class="material-symbols-outlined text-[16px]">download</span>
+<span>Download</span>
+</button>
+</div>
+</div>
+<!-- Row 2: Archived Handover (Prior Shift Delta) -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between p-space-md rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors gap-space-md opacity-90 hover:opacity-100">
+<div class="flex flex-col sm:flex-row sm:items-center gap-space-md min-w-0">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-on-surface-variant shrink-0">
+<span class="material-symbols-outlined text-[20px]">inventory_2</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="font-title-sm text-title-sm text-on-surface font-semibold">Shift: 03 Sep · 09:00–17:00 IST</span>
+<span class="px-space-xs py-space-xxs rounded bg-surface-container-highest text-on-surface-variant font-label-mono-xs text-label-mono-xs font-semibold">Archived</span>
+</div>
+<div class="flex flex-wrap items-center gap-x-space-md gap-y-space-xxs mt-space-xxs font-label-mono-xs text-label-mono-xs text-on-surface-variant">
+<span>Events: <strong class="text-on-surface">58</strong></span>
+<span class="text-on-tertiary-container font-semibold flex items-center gap-space-xxs">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>
+                0 Blockers
+              </span>
+<span>Generated: 16:55 IST</span>
+<span class="hidden sm:inline">Author: Liam V.</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-xs self-end lg:self-center shrink-0">
+<button aria-label="View Handover 09:00-17:00" class="flex items-center gap-space-xxs px-space-md py-space-xs rounded bg-surface-container-highest hover:bg-surface-container-high text-on-surface font-title-sm text-title-sm transition-colors active:scale-95">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+<span>View</span>
+</button>
+<button aria-label="Download PDF handover 09:00-17:00" class="flex items-center gap-space-xxs px-space-md py-space-xs rounded bg-surface-container-highest hover:bg-surface-container-high text-on-surface font-title-sm text-title-sm transition-colors active:scale-95">
+<span class="material-symbols-outlined text-[16px]">download</span>
+<span>Download</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Empty/Delight State Prompt for Older Shifts -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-low text-on-surface-variant">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-secondary">history</span>
+<span class="font-body-sm text-body-sm">Looking for shifts prior to 03 Sep? Access historical vault archive.</span>
+</div>
+<a class="font-label-mono text-label-mono text-secondary hover:underline shrink-0" href="#handover-history">Search 30d Vault →</a>
+</div>
+</div>
+</div>
+<script>
+  (function() {
+    const refreshBtn = document.getElementById('refreshDataBtn');
+    if (refreshBtn) {
+      refreshBtn.addEventListener('click', function() {
+        const icon = refreshBtn.querySelector('.material-symbols-outlined');
+        if (icon) {
+          icon.classList.add('animate-spin');
+          refreshBtn.disabled = true;
+          setTimeout(() => {
+            icon.classList.remove('animate-spin');
+            refreshBtn.disabled = false;
+          }, 850);
+        }
+      });
+    }
+  })();
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_-2px_12px_rgba(0,0,0,0.04)]" data-active-classes="text-secondary font-title-sm"><div class="flex items-center justify-around h-16 px-space-xs"><a aria-current="page" class="min-w-[44px] min-h-[44px] flex flex-col items-center justify-center text-secondary font-title-sm" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[20px]">dashboard</span><span class="font-label-mono-xs text-label-mono-xs">Overview</span></a><a class="min-w-[44px] min-h-[44px] flex flex-col items-center justify-center text-on-surface-variant hover:text-on-surface" data-path="generate-handover" href="#"><span class="material-symbols-outlined text-[20px]">assignment_add</span><span class="font-label-mono-xs text-label-mono-xs">Generate</span></a><a class="min-w-[44px] min-h-[44px] flex flex-col items-center justify-center text-on-surface-variant hover:text-on-surface" data-path="handover-history" href="#"><span class="material-symbols-outlined text-[20px]">history_edu</span><span class="font-label-mono-xs text-label-mono-xs">History</span></a><a class="min-w-[44px] min-h-[44px] flex flex-col items-center justify-center text-on-surface-variant hover:text-on-surface" data-path="data-sources" href="#"><span class="material-symbols-outlined text-[20px]">hub</span><span class="font-label-mono-xs text-label-mono-xs">Sources</span></a><a class="min-w-[44px] min-h-[44px] flex flex-col items-center justify-center text-on-surface-variant hover:text-on-surface" data-path="reports" href="#"><span class="material-symbols-outlined text-[20px]">analytics</span><span class="font-label-mono-xs text-label-mono-xs">Reports</span></a><a class="min-w-[44px] min-h-[44px] flex flex-col items-center justify-center text-on-surface-variant hover:text-on-surface" data-path="settings" href="#"><span class="material-symbols-outlined text-[20px]">settings</span><span class="font-label-mono-xs text-label-mono-xs">Config</span></a></div></nav></body></html>
