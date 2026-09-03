@@ -15,8 +15,6 @@ backend/output/*.pdf
 backend/uploads/*
 !backend/uploads/.gitkeep
 
-# Environment variables
-.env
 
 # Flutter / Dart
 frontend_flutter/.dart_tool/
