@@ -1,0 +1,52 @@
+[
+  {
+    "id": "INC-123",
+    "source": "pagerduty",
+    "timestamp": "2026-09-03T14:45:00Z",
+    "description": "Production DB connection pool exhausted on us-east-1 cluster",
+    "severity": "critical",
+    "resolved": false,
+    "status": "investigating",
+    "service": "database-primary"
+  },
+  {
+    "id": "INC-124",
+    "source": "pagerduty",
+    "timestamp": "2026-09-03T11:00:00Z",
+    "description": "High CPU utilization on worker-node-04",
+    "severity": "medium",
+    "resolved": true,
+    "status": "resolved",
+    "service": "background-workers"
+  },
+  {
+    "id": "INC-125",
+    "source": "pagerduty",
+    "timestamp": "2026-09-03T15:30:00Z",
+    "description": "API Gateway 5xx error rate exceeded 2% threshold",
+    "severity": "high",
+    "resolved": false,
+    "status": "escalated",
+    "service": "api-gateway"
+  },
+  {
+    "id": "INC-126",
+    "source": "pagerduty",
+    "timestamp": "2026-09-03T16:00:00Z",
+    "description": "CDN cache invalidation delayed for static assets",
+    "severity": "low",
+    "resolved": true,
+    "status": "done",
+    "service": "cdn-edge"
+  },
+  {
+    "id": "INC-125",
+    "source": "pagerduty",
+    "timestamp": "2026-09-03T16:20:00Z",
+    "description": "API Gateway 5xx error rate resolved after bad canary rollout rollback",
+    "severity": "high",
+    "resolved": true,
+    "status": "resolved",
+    "service": "api-gateway"
+  }
+]

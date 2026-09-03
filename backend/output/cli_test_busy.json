@@ -1,0 +1,317 @@
+{
+  "id": "handover-20260903125116-6984",
+  "generated_at_utc": "2026-09-03T12:51:16Z",
+  "meta": {
+    "shift_start_local": "2026-09-03T14:00:00",
+    "shift_end_local": "2026-09-03T22:00:00",
+    "timezone": "Asia/Kolkata",
+    "shift_start_utc": "2026-09-03T08:30:00Z",
+    "shift_end_utc": "2026-09-03T16:30:00Z",
+    "total_source_events": 21,
+    "in_window_events": 18,
+    "skipped_events": 0,
+    "source_stats": {
+      "tickets_total": 11,
+      "incidents_total": 5,
+      "chat_total": 5
+    }
+  },
+  "summary": "Shift window (2026-09-03T14:00:00 - 2026-09-03T22:00:00 Asia/Kolkata) logged 15 total activity records: 6 completed tasks, 2 in-progress items, 3 blockers/escalations, 4 watch-list items. Immediate handover attention required for: OPS-4824, INC-123, OPS-4825.",
+  "sections": {
+    "Completed": [
+      {
+        "section": "Completed",
+        "item": "OPS-4822 \u2014 SSL Certificate renewal for auth.internal.company.com [Status: Closed, Assignee: sarah]",
+        "source": "jira:OPS-4822",
+        "record_id": "OPS-4822",
+        "timestamp": "2026-09-03T15:10:00+05:30",
+        "timestamp_utc": "2026-09-03T09:40:00Z",
+        "status": "closed",
+        "assignee": "sarah",
+        "raw": {
+          "id": "OPS-4822",
+          "source": "jira",
+          "timestamp": "2026-09-03T15:10:00+05:30",
+          "summary": "SSL Certificate renewal for auth.internal.company.com",
+          "status": "closed",
+          "assignee": "sarah",
+          "priority": "medium"
+        }
+      },
+      {
+        "section": "Completed",
+        "item": "INC-124 \u2014 High CPU utilization on worker-node-04 [Status: Resolved, Severity: MEDIUM]",
+        "source": "pagerduty:INC-124",
+        "record_id": "INC-124",
+        "timestamp": "2026-09-03T11:00:00Z",
+        "timestamp_utc": "2026-09-03T11:00:00Z",
+        "status": "resolved",
+        "assignee": null,
+        "raw": {
+          "id": "INC-124",
+          "source": "pagerduty",
+          "timestamp": "2026-09-03T11:00:00Z",
+          "description": "High CPU utilization on worker-node-04",
+          "severity": "medium",
+          "resolved": true,
+          "status": "resolved",
+          "service": "background-workers"
+        }
+      },
+      {
+        "section": "Completed",
+        "item": "OPS-4830 \u2014 Payment gateway latency spike (Vendor fixed route, traffic normal) [Status: Resolved, Assignee: michael] (Progression: open \u2192 escalated \u2192 resolved)",
+        "source": "jira:OPS-4830",
+        "record_id": "OPS-4830",
+        "timestamp": "2026-09-03T21:00:00+05:30",
+        "timestamp_utc": "2026-09-03T15:30:00Z",
+        "status": "resolved",
+        "assignee": "michael",
+        "raw": {
+          "id": "OPS-4830",
+          "source": "jira",
+          "timestamp": "2026-09-03T21:00:00+05:30",
+          "summary": "Payment gateway latency spike (Vendor fixed route, traffic normal)",
+          "status": "resolved",
+          "assignee": "michael",
+          "priority": "high"
+        }
+      },
+      {
+        "section": "Completed",
+        "item": "OPS-4826 \u2014 Kubernetes ingress controller patch rollout [Status: Done, Assignee: emily]",
+        "source": "jira:OPS-4826",
+        "record_id": "OPS-4826",
+        "timestamp": "2026-09-03T21:15:00+05:30",
+        "timestamp_utc": "2026-09-03T15:45:00Z",
+        "status": "done",
+        "assignee": "emily",
+        "raw": {
+          "id": "OPS-4826",
+          "source": "jira",
+          "timestamp": "2026-09-03T21:15:00+05:30",
+          "summary": "Kubernetes ingress controller patch rollout",
+          "status": "done",
+          "assignee": "emily",
+          "priority": "medium"
+        }
+      },
+      {
+        "section": "Completed",
+        "item": "INC-126 \u2014 CDN cache invalidation delayed for static assets [Status: Done, Severity: LOW]",
+        "source": "pagerduty:INC-126",
+        "record_id": "INC-126",
+        "timestamp": "2026-09-03T16:00:00Z",
+        "timestamp_utc": "2026-09-03T16:00:00Z",
+        "status": "done",
+        "assignee": null,
+        "raw": {
+          "id": "INC-126",
+          "source": "pagerduty",
+          "timestamp": "2026-09-03T16:00:00Z",
+          "description": "CDN cache invalidation delayed for static assets",
+          "severity": "low",
+          "resolved": true,
+          "status": "done",
+          "service": "cdn-edge"
+        }
+      },
+      {
+        "section": "Completed",
+        "item": "INC-125 \u2014 API Gateway 5xx error rate resolved after bad canary rollout rollback [Status: Resolved, Severity: HIGH] (Progression: escalated \u2192 resolved)",
+        "source": "pagerduty:INC-125",
+        "record_id": "INC-125",
+        "timestamp": "2026-09-03T16:20:00Z",
+        "timestamp_utc": "2026-09-03T16:20:00Z",
+        "status": "resolved",
+        "assignee": null,
+        "raw": {
+          "id": "INC-125",
+          "source": "pagerduty",
+          "timestamp": "2026-09-03T16:20:00Z",
+          "description": "API Gateway 5xx error rate resolved after bad canary rollout rollback",
+          "severity": "high",
+          "resolved": true,
+          "status": "resolved",
+          "service": "api-gateway"
+        }
+      }
+    ],
+    "In Progress": [
+      {
+        "section": "In Progress",
+        "item": "OPS-4823 \u2014 Redis cache node memory leak investigation [Status: In Progress, Assignee: alex]",
+        "source": "jira:OPS-4823",
+        "record_id": "OPS-4823",
+        "timestamp": "2026-09-03T16:45:00+05:30",
+        "timestamp_utc": "2026-09-03T11:15:00Z",
+        "status": "in progress",
+        "assignee": "alex",
+        "raw": {
+          "id": "OPS-4823",
+          "source": "jira",
+          "timestamp": "2026-09-03T16:45:00+05:30",
+          "summary": "Redis cache node memory leak investigation",
+          "status": "in progress",
+          "assignee": "alex",
+          "priority": "high"
+        }
+      },
+      {
+        "section": "In Progress",
+        "item": "OPS-4821 \u2014 Customer reported login failures on mobile app [Status: Open, Assignee: john]",
+        "source": "jira:OPS-4821",
+        "record_id": "OPS-4821",
+        "timestamp": "2026-09-03T19:42:00+05:30",
+        "timestamp_utc": "2026-09-03T14:12:00Z",
+        "status": "open",
+        "assignee": "john",
+        "raw": {
+          "id": "OPS-4821",
+          "source": "jira",
+          "timestamp": "2026-09-03T19:42:00+05:30",
+          "summary": "Customer reported login failures on mobile app",
+          "status": "open",
+          "assignee": "john",
+          "priority": "high"
+        }
+      }
+    ],
+    "Blockers/Escalations": [
+      {
+        "section": "Blockers/Escalations",
+        "item": "OPS-4824 \u2014 Database read-replica replication lag alert [Status: Blocked, Assignee: dave]",
+        "source": "jira:OPS-4824",
+        "record_id": "OPS-4824",
+        "timestamp": "2026-09-03T17:20:00+05:30",
+        "timestamp_utc": "2026-09-03T11:50:00Z",
+        "status": "blocked",
+        "assignee": "dave",
+        "raw": {
+          "id": "OPS-4824",
+          "source": "jira",
+          "timestamp": "2026-09-03T17:20:00+05:30",
+          "summary": "Database read-replica replication lag alert",
+          "status": "blocked",
+          "assignee": "dave",
+          "priority": "critical"
+        }
+      },
+      {
+        "section": "Blockers/Escalations",
+        "item": "INC-123 \u2014 Production DB connection pool exhausted on us-east-1 cluster [Status: Investigating, Severity: CRITICAL, Assignee: UNASSIGNED]",
+        "source": "pagerduty:INC-123",
+        "record_id": "INC-123",
+        "timestamp": "2026-09-03T14:45:00Z",
+        "timestamp_utc": "2026-09-03T14:45:00Z",
+        "status": "investigating",
+        "assignee": null,
+        "raw": {
+          "id": "INC-123",
+          "source": "pagerduty",
+          "timestamp": "2026-09-03T14:45:00Z",
+          "description": "Production DB connection pool exhausted on us-east-1 cluster",
+          "severity": "critical",
+          "resolved": false,
+          "status": "investigating",
+          "service": "database-primary"
+        }
+      },
+      {
+        "section": "Blockers/Escalations",
+        "item": "OPS-4825 \u2014 Billing webhook gateway 504 gateway timeout [Status: Open, Assignee: UNASSIGNED]",
+        "source": "jira:OPS-4825",
+        "record_id": "OPS-4825",
+        "timestamp": "2026-09-03T20:50:00+05:30",
+        "timestamp_utc": "2026-09-03T15:20:00Z",
+        "status": "open",
+        "assignee": null,
+        "raw": {
+          "id": "OPS-4825",
+          "source": "jira",
+          "timestamp": "2026-09-03T20:50:00+05:30",
+          "summary": "Billing webhook gateway 504 gateway timeout",
+          "status": "open",
+          "assignee": null,
+          "priority": "high"
+        }
+      }
+    ],
+    "Watch-List": [
+      {
+        "section": "Watch-List",
+        "item": "msg-004 \u2014 [@emma in #general-noc] \"Morning standup sync completed. All systems green.\"",
+        "source": "slack:msg-004",
+        "record_id": "msg-004",
+        "timestamp": "2026-09-03T09:00:00Z",
+        "timestamp_utc": "2026-09-03T09:00:00Z",
+        "status": "chat",
+        "assignee": null,
+        "raw": {
+          "id": "msg-004",
+          "source": "slack",
+          "timestamp": "2026-09-03T09:00:00Z",
+          "text": "Morning standup sync completed. All systems green.",
+          "user": "emma",
+          "channel": "#general-noc"
+        }
+      },
+      {
+        "section": "Watch-List",
+        "item": "msg-002 \u2014 [@robert in #noc-alerts] \"DB migration scripts scheduled for 23:00 IST tonight \u2014 watch out for lock contention\"",
+        "source": "slack:msg-002",
+        "record_id": "msg-002",
+        "timestamp": "2026-09-03T19:10:00+05:30",
+        "timestamp_utc": "2026-09-03T13:40:00Z",
+        "status": "chat",
+        "assignee": null,
+        "raw": {
+          "id": "msg-002",
+          "source": "slack",
+          "timestamp": "2026-09-03T19:10:00+05:30",
+          "text": "DB migration scripts scheduled for 23:00 IST tonight \u2014 watch out for lock contention",
+          "user": "robert",
+          "channel": "#noc-alerts"
+        }
+      },
+      {
+        "section": "Watch-List",
+        "item": "msg-003 \u2014 [@david in #war-room] \"Third-party Auth0 status dashboard showing elevated latencies in EU-West\"",
+        "source": "slack:msg-003",
+        "record_id": "msg-003",
+        "timestamp": "2026-09-03T14:30:00Z",
+        "timestamp_utc": "2026-09-03T14:30:00Z",
+        "status": "chat",
+        "assignee": null,
+        "raw": {
+          "id": "msg-003",
+          "source": "slack",
+          "timestamp": "2026-09-03T14:30:00Z",
+          "text": "Third-party Auth0 status dashboard showing elevated latencies in EU-West",
+          "user": "david",
+          "channel": "#war-room"
+        }
+      },
+      {
+        "section": "Watch-List",
+        "item": "msg-005 \u2014 [@sarah in #support-handover] \"Follow up on customer ticket OPS-4821 if mobile logins spike after 21:00\"",
+        "source": "slack:msg-005",
+        "record_id": "msg-005",
+        "timestamp": "2026-09-03T15:45:00Z",
+        "timestamp_utc": "2026-09-03T15:45:00Z",
+        "status": "chat",
+        "assignee": null,
+        "raw": {
+          "id": "msg-005",
+          "source": "slack",
+          "timestamp": "2026-09-03T15:45:00Z",
+          "text": "Follow up on customer ticket OPS-4821 if mobile logins spike after 21:00",
+          "user": "sarah",
+          "channel": "#support-handover"
+        }
+      }
+    ]
+  },
+  "total_items": 15,
+  "slack_markdown": ":clipboard: *SHIFT HANDOVER NOTE* (2026-09-03T14:00:00 \u2192 2026-09-03T22:00:00 Asia/Kolkata)\n> Shift window (2026-09-03T14:00:00 - 2026-09-03T22:00:00 Asia/Kolkata) logged 15 total activity records: 6 completed tasks, 2 in-progress items, 3 blockers/escalations, 4 watch-list items. Immediate handover attention required for: OPS-4824, INC-123, OPS-4825.\n\n*:white_check_mark: Completed*\n\u2022 `jira:OPS-4822` \u2014 OPS-4822 \u2014 SSL Certificate renewal for auth.internal.company.com [Status: Closed, Assignee: sarah]\n\u2022 `pagerduty:INC-124` \u2014 INC-124 \u2014 High CPU utilization on worker-node-04 [Status: Resolved, Severity: MEDIUM]\n\u2022 `jira:OPS-4830` \u2014 OPS-4830 \u2014 Payment gateway latency spike (Vendor fixed route, traffic normal) [Status: Resolved, Assignee: michael] (Progression: open \u2192 escalated \u2192 resolved)\n\u2022 `jira:OPS-4826` \u2014 OPS-4826 \u2014 Kubernetes ingress controller patch rollout [Status: Done, Assignee: emily]\n\u2022 `pagerduty:INC-126` \u2014 INC-126 \u2014 CDN cache invalidation delayed for static assets [Status: Done, Severity: LOW]\n\u2022 `pagerduty:INC-125` \u2014 INC-125 \u2014 API Gateway 5xx error rate resolved after bad canary rollout rollback [Status: Resolved, Severity: HIGH] (Progression: escalated \u2192 resolved)\n\n*:hourglass_flowing_sand: In Progress*\n\u2022 `jira:OPS-4823` \u2014 OPS-4823 \u2014 Redis cache node memory leak investigation [Status: In Progress, Assignee: alex]\n\u2022 `jira:OPS-4821` \u2014 OPS-4821 \u2014 Customer reported login failures on mobile app [Status: Open, Assignee: john]\n\n*:rotating_light: Blockers/Escalations*\n\u2022 `jira:OPS-4824` \u2014 OPS-4824 \u2014 Database read-replica replication lag alert [Status: Blocked, Assignee: dave]\n\u2022 `pagerduty:INC-123` \u2014 INC-123 \u2014 Production DB connection pool exhausted on us-east-1 cluster [Status: Investigating, Severity: CRITICAL, Assignee: UNASSIGNED]\n\u2022 `jira:OPS-4825` \u2014 OPS-4825 \u2014 Billing webhook gateway 504 gateway timeout [Status: Open, Assignee: UNASSIGNED]\n\n*:eyes: Watch-List*\n\u2022 `slack:msg-004` \u2014 msg-004 \u2014 [@emma in #general-noc] \"Morning standup sync completed. All systems green.\"\n\u2022 `slack:msg-002` \u2014 msg-002 \u2014 [@robert in #noc-alerts] \"DB migration scripts scheduled for 23:00 IST tonight \u2014 watch out for lock contention\"\n\u2022 `slack:msg-003` \u2014 msg-003 \u2014 [@david in #war-room] \"Third-party Auth0 status dashboard showing elevated latencies in EU-West\"\n\u2022 `slack:msg-005` \u2014 msg-005 \u2014 [@sarah in #support-handover] \"Follow up on customer ticket OPS-4821 if mobile logins spike after 21:00\""
+}

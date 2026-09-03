@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShiftOps — Enterprise Handover & Task Management</title>
+  <meta name="description" content="Enterprise platform combining grounded shift handover note generation with role-based task assignment and submission workflows.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-page: #f8fafc;
+      --bg-gradient-1: rgba(99, 102, 241, 0.08);
+      --bg-gradient-2: rgba(59, 130, 246, 0.06);
+      --bg-card: #ffffff;
+      --bg-card-hover: #f1f5f9;
+      --bg-input: #ffffff;
+      --border-color: #e2e8f0;
+      --border-accent: rgba(99, 102, 241, 0.35);
+      
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      
+      --accent-indigo: #4f46e5;
+      --accent-indigo-hover: #4338ca;
+      
+      --sec-completed: #059669;
+      --sec-completed-bg: #ecfdf5;
+      --sec-inprogress: #2563eb;
+      --sec-inprogress-bg: #eff6ff;
+      --sec-blockers: #dc2626;
+      --sec-blockers-bg: #fef2f2;
+      --sec-watchlist: #d97706;
+      --sec-watchlist-bg: #fffbeb;
+      
+      --card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.04);
+      --card-shadow-hover: 0 10px 25px -3px rgba(0, 0, 0, 0.09), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+    }
+
+    [data-theme="dark"] {
+      --bg-page: #090d16;
+      --bg-gradient-1: rgba(99, 102, 241, 0.15);
+      --bg-gradient-2: rgba(59, 130, 246, 0.12);
+      --bg-card: rgba(18, 24, 38, 0.9);
+      --bg-card-hover: rgba(26, 35, 56, 0.95);
+      --bg-input: rgba(11, 16, 26, 0.8);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-accent: rgba(99, 102, 241, 0.3);
+      
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      
+      --accent-indigo: #6366f1;
+      --accent-indigo-hover: #4f46e5;
+      
+      --sec-completed: #10b981;
+      --sec-completed-bg: rgba(16, 185, 129, 0.12);
+      --sec-inprogress: #3b82f6;
+      --sec-inprogress-bg: rgba(59, 130, 246, 0.12);
+      --sec-blockers: #ef4444;
+      --sec-blockers-bg: rgba(239, 68, 68, 0.12);
+      --sec-watchlist: #f59e0b;
+      --sec-watchlist-bg: rgba(245, 158, 11, 0.12);
+      
+      --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      --card-shadow-hover: 0 12px 40px 0 rgba(0, 0, 0, 0.5);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      background-image: 
+        radial-gradient(at 0% 0%, var(--bg-gradient-1) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, var(--bg-gradient-2) 0px, transparent 50%);
+      background-attachment: fixed;
+      color: var(--text-primary);
+      min-height: 100vh;
+      padding: 24px;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo-badge {
+      background: linear-gradient(135deg, #6366f1, #3b82f6);
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+      color: white;
+    }
+
+    .brand-text h1 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .brand-text p {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .search-box-wrapper {
+      position: relative;
+    }
+
+    .search-input {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 8px 14px 8px 34px;
+      border-radius: 9999px;
+      font-size: 13px;
+      width: 220px;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .search-input:focus {
+      width: 300px;
+      border-color: var(--accent-indigo);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .search-dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      margin-top: 8px;
+      width: 340px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+      z-index: 100;
+      max-height: 380px;
+      overflow-y: auto;
+      padding: 8px;
+    }
+
+    .search-section-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 6px 8px;
+    }
+
+    .search-item {
+      padding: 8px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .search-item:hover {
+      background: var(--bg-card-hover);
+    }
+
+    .theme-toggle-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 8px 14px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .user-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .role-badge {
+      background: rgba(99, 102, 241, 0.15);
+      color: var(--accent-indigo);
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+
+    .role-badge.admin {
+      background: rgba(220, 38, 38, 0.12);
+      color: var(--sec-blockers);
+    }
+
+    /* Navigation Tabs */
+    .nav-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 12px;
+      overflow-x: auto;
+    }
+
+    .nav-tab {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.15s;
+    }
+
+    .nav-tab:hover {
+      background: var(--bg-card);
+      color: var(--text-primary);
+    }
+
+    .nav-tab.active {
+      background: var(--accent-indigo);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    }
+
+    /* Cards & Controls */
+    .panel-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 28px;
+      box-shadow: var(--card-shadow);
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .panel-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.15s;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #6366f1, #4f46e5);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #4f46e5, #4338ca);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: var(--bg-page);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-card-hover);
+    }
+
+    .btn-danger {
+      background: rgba(220, 38, 38, 0.12);
+      border: 1px solid rgba(220, 38, 38, 0.25);
+      color: var(--sec-blockers);
+    }
+
+    .btn-danger:hover {
+      background: var(--sec-blockers);
+      color: white;
+    }
+
+    /* Tables */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .data-table th {
+      text-align: left;
+      padding: 12px 14px;
+      color: var(--text-muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .data-table td {
+      padding: 14px;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-primary);
+    }
+
+    .data-table tr:hover td {
+      background: var(--bg-page);
+    }
+
+    .status-chip {
+      padding: 3px 10px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      display: inline-block;
+    }
+
+    .status-chip.pending {
+      background: #fef3c7;
+      color: #92400e;
+    }
+    .status-chip.submitted {
+      background: #e0e7ff;
+      color: #3730a3;
+    }
+    .status-chip.completed {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    /* Auth Screen Card */
+    .login-container {
+      max-width: 440px;
+      margin: 60px auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--card-shadow-hover);
+    }
+
+    .input-field {
+      width: 100%;
+      background: var(--bg-input);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      outline: none;
+      margin-top: 6px;
+      margin-bottom: 14px;
+    }
+
+    .input-field:focus {
+      border-color: var(--accent-indigo);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+    }
+
+    .preset-demo-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    /* Handover Generator Components */
+    .controls-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .control-group label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+    }
+
+    .presets-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .preset-chip {
+      background: var(--bg-page);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .preset-chip.active {
+      background: var(--accent-indigo);
+      border-color: var(--accent-indigo);
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .sections-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .section-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+    }
+
+    .section-header {
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 700;
+      font-size: 14px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .section-header.completed { background: var(--sec-completed-bg); color: var(--sec-completed); border-left: 4px solid var(--sec-completed); }
+    .section-header.inprogress { background: var(--sec-inprogress-bg); color: var(--sec-inprogress); border-left: 4px solid var(--sec-inprogress); }
+    .section-header.blockers { background: var(--sec-blockers-bg); color: var(--sec-blockers); border-left: 4px solid var(--sec-blockers); }
+    .section-header.watchlist { background: var(--sec-watchlist-bg); color: var(--sec-watchlist); border-left: 4px solid var(--sec-watchlist); }
+
+    .item-card {
+      background: var(--bg-page);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      margin-bottom: 8px;
+    }
+
+    .source-chip {
+      font-family: 'JetBrains Mono', monospace;
+      background: rgba(99, 102, 241, 0.12);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      color: var(--accent-indigo);
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      max-width: 520px;
+      width: 90%;
+      padding: 24px;
+      max-height: 85vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #0f172a;
+      border: 1px solid var(--accent-indigo);
+      color: white;
+      padding: 11px 20px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 500;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+      display: none;
+      z-index: 2000;
+    }
+
+    .code-block {
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: #38bdf8;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="brand">
+        <div class="logo-badge">📋</div>
+        <div class="brand-text">
+          <h1>ShiftOps Portal</h1>
+          <p>Handover Notes Generator & Task Submissions</p>
+        </div>
+      </div>
+      <div class="header-actions" id="headerActions">
+        <!-- Global Search -->
+        <div class="search-box-wrapper" id="searchWrapper" style="display: none;">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="search-input" id="globalSearchInput" placeholder="Search people, ID, tasks...">
+          <div class="search-dropdown" id="searchDropdown"></div>
+        </div>
+
+        <a href="/api/download/apk" class="btn btn-secondary" style="border-radius: 9999px; font-size: 12px; padding: 7px 12px; display: inline-flex; align-items: center; gap: 6px;">
+          <span>📲</span> <span>Download Mobile APK</span>
+        </a>
+
+        <button class="theme-toggle-btn" id="themeToggleBtn">
+          <span id="themeIcon">🌙</span> <span id="themeLabel">Dark Theme</span>
+        </button>
+
+        <div id="userProfileContainer" style="display: none;">
+          <div class="user-pill">
+            <span id="userDisplayName">User</span>
+            <span class="role-badge" id="userRoleBadge">Employee</span>
+            <button class="btn btn-secondary" style="padding: 4px 10px; font-size: 11px;" id="logoutBtn">Sign Out</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Login View (When Logged Out) -->
+    <div id="loginView" class="login-container">
+      <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 6px;">Sign In to ShiftOps</h2>
+      <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
+        Role-based access for Ops Leads (Admin) and Shift Engineers (Employees).
+      </p>
+      
+      <form id="loginForm">
+        <label style="font-size: 12px; font-weight: 600; text-transform: uppercase; color: var(--text-secondary);">Email</label>
+        <input type="email" id="loginEmail" class="input-field" value="admin@example.com" required>
+
+        <label style="font-size: 12px; font-weight: 600; text-transform: uppercase; color: var(--text-secondary);">Password</label>
+        <input type="password" id="loginPassword" class="input-field" value="admin123" required>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 12px;" id="loginSubmitBtn">
+          Sign In
+        </button>
+      </form>
+
+      <div style="margin-top: 24px; border-top: 1px solid var(--border-color); padding-top: 16px;">
+        <span style="font-size: 12px; color: var(--text-muted); font-weight: 600;">⚡ QUICK DEMO LOGINS:</span>
+        <div class="preset-demo-btns">
+          <button class="btn btn-secondary" onclick="quickLogin('admin@example.com', 'admin123')">
+            👑 Admin (Ops Lead) — All Users, Tasks & Reviews
+          </button>
+          <button class="btn btn-secondary" onclick="quickLogin('john@example.com', 'employee123')">
+            👨‍💻 John Doe (EMP-101) — Assigned Tasks & Submissions
+          </button>
+          <button class="btn btn-secondary" onclick="quickLogin('sarah@example.com', 'employee123')">
+            👩‍💻 Sarah Connor (EMP-102) — Assigned Tasks & Submissions
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Authenticated App View -->
+    <div id="appView" style="display: none;">
+      <!-- Role Navigation Tabs -->
+      <nav class="nav-tabs" id="navTabsContainer">
+        <!-- Generated Dynamically Based on Role -->
+      </nav>
+
+      <!-- TAB 1: USERS (Admin Only) -->
+      <section id="tabUsers" class="panel-card tab-content" style="display: none;">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">👥 Team Directory & User Management</div>
+            <p style="font-size: 13px; color: var(--text-secondary);">Create, assign roles, and manage employee accounts</p>
+          </div>
+          <button class="btn btn-primary" id="openAddUserModalBtn">+ Add New User</button>
+        </div>
+        <div style="overflow-x: auto;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Employee ID</th>
+                <th>Full Name</th>
+                <th>Email Address</th>
+                <th>System Role</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="usersTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- TAB 2: TASKS (Admin & Employee) -->
+      <section id="tabTasks" class="panel-card tab-content" style="display: none;">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title" id="tasksPanelTitle">📝 Work Tasks</div>
+            <p style="font-size: 13px; color: var(--text-secondary);">Track task progress, assignments, and completion states</p>
+          </div>
+          <button class="btn btn-primary" id="openCreateTaskModalBtn" style="display: none;">+ Assign New Task</button>
+        </div>
+        <div style="overflow-x: auto;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Task ID</th>
+                <th>Title & Description</th>
+                <th>Assigned To</th>
+                <th>Status</th>
+                <th>Submission / Action</th>
+              </tr>
+            </thead>
+            <tbody id="tasksTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- TAB 3: SUBMISSIONS (Admin Only) -->
+      <section id="tabSubmissions" class="panel-card tab-content" style="display: none;">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">📥 Submissions & Approvals</div>
+            <p style="font-size: 13px; color: var(--text-secondary);">Review completed work links, download zip artifacts, and mark tasks complete</p>
+          </div>
+        </div>
+        <div style="overflow-x: auto;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Task</th>
+                <th>Submitted By</th>
+                <th>Submitted Work</th>
+                <th>Review Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="submissionsTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- TAB 4: SHIFT HANDOVER NOTE GENERATOR (All Roles) -->
+      <section id="tabHandover" class="panel-card tab-content" style="display: none;">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">📋 Grounded Shift Handover Note Generator</div>
+            <p style="font-size: 13px; color: var(--text-secondary);">Pull shift events from tickets, incidents, and chat; deduplicate; and export PDF</p>
+          </div>
+        </div>
+
+        <div class="controls-grid">
+          <div class="control-group">
+            <label for="shiftStart">Shift Start</label>
+            <input type="datetime-local" id="shiftStart" class="input-field" value="2026-09-03T14:00">
+          </div>
+          <div class="control-group">
+            <label for="shiftEnd">Shift End</label>
+            <input type="datetime-local" id="shiftEnd" class="input-field" value="2026-09-03T22:00">
+          </div>
+          <div class="control-group">
+            <label for="shiftTimezone">Shift Timezone</label>
+            <select id="shiftTimezone" class="input-field">
+              <option value="Asia/Kolkata" selected>Asia/Kolkata (IST +05:30)</option>
+              <option value="UTC">UTC (GMT +00:00)</option>
+              <option value="America/New_York">America/New_York (EDT -04:00)</option>
+              <option value="Europe/London">Europe/London (BST +01:00)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="presets-bar">
+          <span style="font-size: 12px; font-weight: 600; color: var(--text-muted); text-transform: uppercase;">Scenarios:</span>
+          <button class="preset-chip active" onclick="applyPreset('busy')">Busy Shift (15 items)</button>
+          <button class="preset-chip" onclick="applyPreset('quiet')">Quiet Shift (0 items)</button>
+          <button class="preset-chip" onclick="applyPreset('messy')">Messy Shift (Deduplication)</button>
+          <button class="preset-chip" onclick="applyPreset('morning')">Morning Shift (08:00 - 16:00)</button>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; margin-bottom: 24px;">
+          <button class="btn btn-primary" id="generateHandoverBtn">⚡ Generate Handover Note</button>
+        </div>
+
+        <!-- Handover Result Area -->
+        <div id="handoverResultsArea" style="display: none;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+            <div style="font-size: 16px; font-weight: 700;">Shift Handover Note Preview</div>
+            <div style="display: flex; gap: 8px;">
+              <button class="btn btn-secondary" id="copySlackBtn">💬 Copy for Slack</button>
+              <a class="btn btn-primary" id="downloadPdfBtn" href="#" target="_blank">📥 Download PDF</a>
+            </div>
+          </div>
+
+          <div style="background: var(--sec-inprogress-bg); border: 1px solid var(--border-accent); border-radius: var(--radius-md); padding: 14px 18px; margin-bottom: 20px;">
+            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--accent-indigo); margin-bottom: 4px;">Executive Overview</div>
+            <div id="execSummaryText" style="font-size: 13px; font-weight: 500;"></div>
+          </div>
+
+          <div class="sections-grid">
+            <div class="section-card">
+              <div class="section-header completed">
+                <span>✅ Completed Work</span>
+                <span id="badgeCompleted">0 items</span>
+              </div>
+              <div style="padding: 14px;" id="listCompleted"></div>
+            </div>
+
+            <div class="section-card">
+              <div class="section-header inprogress">
+                <span>⏳ In Progress</span>
+                <span id="badgeInProgress">0 items</span>
+              </div>
+              <div style="padding: 14px;" id="listInProgress"></div>
+            </div>
+
+            <div class="section-card">
+              <div class="section-header blockers">
+                <span>🚨 Blockers / Escalations</span>
+                <span id="badgeBlockers">0 items</span>
+              </div>
+              <div style="padding: 14px;" id="listBlockers"></div>
+            </div>
+
+            <div class="section-card">
+              <div class="section-header watchlist">
+                <span>👀 Things to Watch (Chat & Alerts)</span>
+                <span id="badgeWatchlist">0 items</span>
+              </div>
+              <div style="padding: 14px;" id="listWatchlist"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- Create Task Modal -->
+  <div class="modal-overlay" id="createTaskModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 style="font-size: 16px; font-weight: 700;">Assign New Work Task</h3>
+        <button onclick="closeModal('createTaskModal')" style="background:none; border:none; font-size:18px; cursor:pointer;">✕</button>
+      </div>
+      <form id="createTaskForm">
+        <label style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">Task Title *</label>
+        <input type="text" id="taskTitleInput" class="input-field" placeholder="e.g. Profile database lock contention" required>
+
+        <label style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">Description</label>
+        <textarea id="taskDescInput" class="input-field" rows="3" placeholder="Details and instructions for the assigned engineer..."></textarea>
+
+        <label style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">Assign To Employee</label>
+        <select id="taskAssigneeSelect" class="input-field"></select>
+
+        <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 10px;">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('createTaskModal')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Create Task</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add User Modal -->
+  <div class="modal-overlay" id="addUserModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 style="font-size: 16px; font-weight: 700;">Add Team Member</h3>
+        <button onclick="closeModal('addUserModal')" style="background:none; border:none; font-size:18px; cursor:pointer;">✕</button>
+      </div>
+      <form id="addUserForm">
+        <label style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">Full Name *</label>
+        <input type="text" id="userNameInput" class="input-field" placeholder="Jane Doe" required>
+
+        <label style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">Email Address *</label>
+        <input type="email" id="userEmailInput" class="input-field" placeholder="jane@example.com" required>
+
+        <label style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">Employee ID</label>
+        <input type="text" id="userEmpIdInput" class="input-field" placeholder="EMP-104">
+
+        <label style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">Password *</label>
+        <input type="password" id="userPasswordInput" class="input-field" required>
+
+        <label style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">System Role</label>
+        <select id="userRoleSelect" class="input-field">
+          <option value="employee">Employee</option>
+          <option value="admin">Admin</option>
+        </select>
+
+        <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 10px;">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('addUserModal')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Create User</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Submit Work Modal -->
+  <div class="modal-overlay" id="submitWorkModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 style="font-size: 16px; font-weight: 700;">Submit Completed Work</h3>
+        <button onclick="closeModal('submitWorkModal')" style="background:none; border:none; font-size:18px; cursor:pointer;">✕</button>
+      </div>
+      <form id="submitWorkForm">
+        <input type="hidden" id="submitTaskIdInput">
+        <p id="submitTaskTitleLabel" style="font-size: 13px; font-weight: 600; margin-bottom: 12px; color: var(--accent-indigo);"></p>
+
+        <label style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">Repository / PR / Google Drive Link</label>
+        <input type="url" id="submitLinkInput" class="input-field" placeholder="https://github.com/org/repo/pull/42">
+
+        <label style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">OR Upload ZIP Archive (.zip)</label>
+        <input type="file" id="submitFileInput" class="input-field" accept=".zip">
+
+        <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px;">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('submitWorkModal')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Submit Work</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Review Submission Modal -->
+  <div class="modal-overlay" id="reviewModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 style="font-size: 16px; font-weight: 700;">Review Employee Submission</h3>
+        <button onclick="closeModal('reviewModal')" style="background:none; border:none; font-size:18px; cursor:pointer;">✕</button>
+      </div>
+      <form id="reviewForm">
+        <input type="hidden" id="reviewSubIdInput">
+        <div id="reviewDetailsBox" style="background: var(--bg-page); padding: 12px; border-radius: 8px; font-size: 13px; margin-bottom: 14px;"></div>
+
+        <label style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">Review Notes / Feedback</label>
+        <textarea id="reviewNotesInput" class="input-field" rows="3" placeholder="Approved and verified..."></textarea>
+
+        <label style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">Update Task Status</label>
+        <select id="reviewStatusSelect" class="input-field">
+          <option value="completed">Mark Complete (Approved)</option>
+          <option value="pending">Reject (Set Back to Pending)</option>
+        </select>
+
+        <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px;">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('reviewModal')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Review</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Traceability Modal -->
+  <div class="modal-overlay" id="traceModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 style="font-size: 15px; color: var(--text-primary);">Event Grounding & Source Audit</h3>
+        <button onclick="closeModal('traceModal')" style="background: none; border: none; font-size: 18px; cursor: pointer;">✕</button>
+      </div>
+      <pre class="code-block" id="modalJsonContent"></pre>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toastMessage">Success</div>
+
+  <script>
+    let currentUser = null;
+    let allUsersCache = [];
+    let currentHandoverData = null;
+
+    // Toast Notification
+    function showToast(msg) {
+      const t = document.getElementById('toastMessage');
+      t.textContent = msg;
+      t.style.display = 'block';
+      setTimeout(() => { t.style.display = 'none'; }, 3200);
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+
+    // Theme Toggle
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeLabel = document.getElementById('themeLabel');
+
+    function setTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      if (theme === 'dark') {
+        themeIcon.textContent = '☀️';
+        themeLabel.textContent = 'Light Theme';
+      } else {
+        themeIcon.textContent = '🌙';
+        themeLabel.textContent = 'Dark Theme';
+      }
+      localStorage.setItem('theme', theme);
+    }
+
+    themeToggleBtn.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme') || 'light';
+      setTheme(current === 'light' ? 'dark' : 'light');
+    });
+    setTheme(localStorage.getItem('theme') || 'light');
+
+    // Auth Check
+    async function checkAuth() {
+      try {
+        const res = await fetch('/api/me');
+        const data = await res.json();
+        if (data.authenticated && data.user) {
+          currentUser = data.user;
+          renderApp();
+        } else {
+          showLoginView();
+        }
+      } catch (err) {
+        showLoginView();
+      }
+    }
+
+    function showLoginView() {
+      currentUser = null;
+      document.getElementById('loginView').style.display = 'block';
+      document.getElementById('appView').style.display = 'none';
+      document.getElementById('userProfileContainer').style.display = 'none';
+      document.getElementById('searchWrapper').style.display = 'none';
+    }
+
+    function quickLogin(email, password) {
+      document.getElementById('loginEmail').value = email;
+      document.getElementById('loginPassword').value = password;
+      document.getElementById('loginForm').dispatchEvent(new Event('submit'));
+    }
+
+    // Login Form
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value;
+
+      try {
+        const res = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Login failed');
+        currentUser = data.user;
+        renderApp();
+        showToast(`Welcome back, ${currentUser.name}!`);
+      } catch (err) {
+        alert(err.message);
+      }
+    });
+
+    // Logout
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      await fetch('/api/logout', { method: 'POST' });
+      showLoginView();
+      showToast('Signed out successfully.');
+    });
+
+    // Render Authenticated App UI
+    function renderApp() {
+      document.getElementById('loginView').style.display = 'none';
+      document.getElementById('appView').style.display = 'block';
+      document.getElementById('userProfileContainer').style.display = 'flex';
+      document.getElementById('searchWrapper').style.display = 'block';
+
+      document.getElementById('userDisplayName').textContent = currentUser.name;
+      const roleBadge = document.getElementById('userRoleBadge');
+      roleBadge.textContent = currentUser.role.toUpperCase();
+      roleBadge.className = `role-badge ${currentUser.role}`;
+
+      const navTabs = document.getElementById('navTabsContainer');
+      navTabs.innerHTML = '';
+
+      if (currentUser.role === 'admin') {
+        navTabs.innerHTML = `
+          <button class="nav-tab active" onclick="switchTab('tabUsers')">👥 Users & Team</button>
+          <button class="nav-tab" onclick="switchTab('tabTasks')">📝 All Tasks</button>
+          <button class="nav-tab" onclick="switchTab('tabSubmissions')">📥 Submissions</button>
+          <button class="nav-tab" onclick="switchTab('tabHandover')">📋 Shift Handover Notes</button>
+        `;
+        document.getElementById('openCreateTaskModalBtn').style.display = 'inline-flex';
+        switchTab('tabUsers');
+        loadUsers();
+      } else {
+        navTabs.innerHTML = `
+          <button class="nav-tab active" onclick="switchTab('tabTasks')">📋 My Assigned Tasks</button>
+          <button class="nav-tab" onclick="switchTab('tabHandover')">📋 Shift Handover Notes</button>
+        `;
+        document.getElementById('openCreateTaskModalBtn').style.display = 'none';
+        switchTab('tabTasks');
+      }
+
+      loadTasks();
+    }
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
+      document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
+
+      const targetTab = document.getElementById(tabId);
+      if (targetTab) targetTab.style.display = 'block';
+
+      event?.target?.classList?.add('active');
+
+      if (tabId === 'tabUsers') loadUsers();
+      if (tabId === 'tabTasks') loadTasks();
+      if (tabId === 'tabSubmissions') loadSubmissions();
+    }
+
+    // Load Users (Admin)
+    async function loadUsers() {
+      try {
+        const res = await fetch('/api/users');
+        const users = await res.json();
+        allUsersCache = users;
+        const tbody = document.getElementById('usersTableBody');
+        tbody.innerHTML = '';
+
+        users.forEach(u => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td><code>${u.employee_id || 'N/A'}</code></td>
+            <td><b>${u.name}</b></td>
+            <td>${u.email}</td>
+            <td><span class="role-badge ${u.role}">${u.role.toUpperCase()}</span></td>
+            <td>
+              ${u.id !== currentUser.id ? `<button class="btn btn-danger" style="padding:4px 8px; font-size:11px;" onclick="deleteUser(${u.id})">Delete</button>` : '<span style="color:var(--text-muted);">Current User</span>'}
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+
+        // Populate Assignee Dropdown
+        const assigneeSelect = document.getElementById('taskAssigneeSelect');
+        assigneeSelect.innerHTML = '<option value="">-- Select Employee --</option>';
+        users.forEach(u => {
+          assigneeSelect.innerHTML += `<option value="${u.id}">${u.name} (${u.employee_id || u.role})</option>`;
+        });
+      } catch (err) {
+        console.error('Error loading users:', err);
+      }
+    }
+
+    async function deleteUser(id) {
+      if (!confirm('Are you sure you want to delete this user?')) return;
+      await fetch(`/api/users/${id}`, { method: 'DELETE' });
+      loadUsers();
+      showToast('User deleted.');
+    }
+
+    // Add User Modal
+    document.getElementById('openAddUserModalBtn').addEventListener('click', () => {
+      document.getElementById('addUserModal').style.display = 'flex';
+    });
+
+    document.getElementById('addUserForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const body = {
+        name: document.getElementById('userNameInput').value.trim(),
+        email: document.getElementById('userEmailInput').value.trim(),
+        employee_id: document.getElementById('userEmpIdInput').value.trim(),
+        password: document.getElementById('userPasswordInput').value,
+        role: document.getElementById('userRoleSelect').value,
+      };
+
+      const res = await fetch('/api/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+      if (res.ok) {
+        closeModal('addUserModal');
+        loadUsers();
+        showToast('User added successfully.');
+      } else {
+        const err = await res.json();
+        alert(err.error || 'Failed to add user');
+      }
+    });
+
+    // Load Tasks
+    async function loadTasks() {
+      try {
+        const res = await fetch('/api/tasks');
+        const tasks = await res.json();
+        const tbody = document.getElementById('tasksTableBody');
+        tbody.innerHTML = '';
+
+        if (tasks.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:var(--text-muted);">No tasks found.</td></tr>';
+          return;
+        }
+
+        tasks.forEach(t => {
+          const tr = document.createElement('tr');
+          let actionHtml = '';
+
+          if (t.submission) {
+            actionHtml = `<span style="color:var(--sec-completed); font-weight:600;">✓ Submitted</span>`;
+            if (currentUser.role === 'admin') {
+              actionHtml += ` <button class="btn btn-secondary" style="padding:3px 8px; font-size:11px; margin-left:6px;" onclick="openReviewModal(${t.id})">Review</button>`;
+            }
+          } else if (currentUser.role === 'employee' && t.status === 'pending') {
+            actionHtml = `<button class="btn btn-primary" style="padding:4px 10px; font-size:12px;" onclick="openSubmitModal(${t.id}, '${t.title.replace(/'/g, "\\'")}')">🚀 Submit Work</button>`;
+          } else {
+            actionHtml = `<span style="color:var(--text-muted); font-size:12px;">Pending submission</span>`;
+          }
+
+          tr.innerHTML = `
+            <td><code>#${t.id}</code></td>
+            <td>
+              <div style="font-weight:600;">${t.title}</div>
+              <div style="font-size:12px; color:var(--text-secondary);">${t.description || ''}</div>
+            </td>
+            <td>${t.assigned_employee_name} <code style="font-size:11px;">(${t.assigned_employee_id || 'N/A'})</code></td>
+            <td><span class="status-chip ${t.status}">${t.status}</span></td>
+            <td>${actionHtml}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      } catch (err) {
+        console.error('Error loading tasks:', err);
+      }
+    }
+
+    // Create Task (Admin)
+    document.getElementById('openCreateTaskModalBtn').addEventListener('click', () => {
+      document.getElementById('createTaskModal').style.display = 'flex';
+    });
+
+    document.getElementById('createTaskForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const body = {
+        title: document.getElementById('taskTitleInput').value.trim(),
+        description: document.getElementById('taskDescInput').value.trim(),
+        assigned_to: parseInt(document.getElementById('taskAssigneeSelect').value) || null,
+      };
+
+      const res = await fetch('/api/tasks', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+      if (res.ok) {
+        closeModal('createTaskModal');
+        document.getElementById('createTaskForm').reset();
+        loadTasks();
+        showToast('Task created and assigned successfully.');
+      } else {
+        const err = await res.json();
+        alert(err.error || 'Failed to create task');
+      }
+    });
+
+    // Submit Work Modal (Employee)
+    function openSubmitModal(taskId, title) {
+      document.getElementById('submitTaskIdInput').value = taskId;
+      document.getElementById('submitTaskTitleLabel').textContent = `Task #${taskId}: ${title}`;
+      document.getElementById('submitWorkModal').style.display = 'flex';
+    }
+
+    document.getElementById('submitWorkForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const taskId = document.getElementById('submitTaskIdInput').value;
+      const link = document.getElementById('submitLinkInput').value.trim();
+      const fileInput = document.getElementById('submitFileInput');
+
+      const formData = new FormData();
+      if (link) formData.append('link', link);
+      if (fileInput.files.length > 0) {
+        formData.append('file', fileInput.files[0]);
+      }
+
+      const res = await fetch(`/api/tasks/${taskId}/submit`, {
+        method: 'POST',
+        body: formData
+      });
+
+      if (res.ok) {
+        closeModal('submitWorkModal');
+        document.getElementById('submitWorkForm').reset();
+        loadTasks();
+        showToast('Work submitted successfully!');
+      } else {
+        const err = await res.json();
+        alert(err.error || 'Submission failed');
+      }
+    });
+
+    // Submissions List (Admin)
+    async function loadSubmissions() {
+      try {
+        const res = await fetch('/api/tasks');
+        const tasks = await res.json();
+        const tbody = document.getElementById('submissionsTableBody');
+        tbody.innerHTML = '';
+
+        const submittedTasks = tasks.filter(t => t.submission);
+        if (submittedTasks.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:var(--text-muted);">No submissions yet.</td></tr>';
+          return;
+        }
+
+        submittedTasks.forEach(t => {
+          const sub = t.submission;
+          const tr = document.createElement('tr');
+          let workHtml = '';
+          if (sub.link) workHtml += `<a href="${sub.link}" target="_blank" style="color:var(--accent-indigo); text-decoration:none; font-weight:600;">🔗 Open Link</a> `;
+          if (sub.has_file) workHtml += `<a href="/api/submissions/${sub.id}/download" class="btn btn-secondary" style="padding:2px 6px; font-size:11px;">📦 Download Zip</a>`;
+
+          tr.innerHTML = `
+            <td><b>${t.title}</b></td>
+            <td>${sub.submitter_name} <code style="font-size:11px;">(${sub.submitter_employee_id || ''})</code></td>
+            <td>${workHtml}</td>
+            <td>
+              <span class="status-chip ${t.status}">${t.status}</span>
+              ${sub.admin_notes ? `<div style="font-size:11px; color:var(--sec-completed); margin-top:2px;">Note: ${sub.admin_notes}</div>` : ''}
+            </td>
+            <td>
+              <button class="btn btn-primary" style="padding:4px 10px; font-size:12px;" onclick="openReviewModalDirect(${sub.id}, '${t.title.replace(/'/g, "\\'")}', '${sub.submitter_name}', '${sub.link || ''}', '${sub.admin_notes || ''}', '${t.status}')">Review & Complete</button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      } catch (err) {
+        console.error('Error loading submissions:', err);
+      }
+    }
+
+    async function openReviewModal(taskId) {
+      const res = await fetch(`/api/tasks/${taskId}/submission`);
+      const data = await res.json();
+      if (data.submission) {
+        const sub = data.submission;
+        openReviewModalDirect(sub.id, `Task #${taskId}`, sub.submitter_name, sub.link || '', sub.admin_notes || '', 'completed');
+      }
+    }
+
+    function openReviewModalDirect(subId, title, name, link, notes, status) {
+      document.getElementById('reviewSubIdInput').value = subId;
+      document.getElementById('reviewDetailsBox').innerHTML = `
+        <div><b>Task:</b> ${title}</div>
+        <div><b>Submitted By:</b> ${name}</div>
+        ${link ? `<div><b>Link:</b> <a href="${link}" target="_blank">${link}</a></div>` : ''}
+      `;
+      document.getElementById('reviewNotesInput').value = notes;
+      document.getElementById('reviewStatusSelect').value = status === 'completed' ? 'completed' : 'pending';
+      document.getElementById('reviewModal').style.display = 'flex';
+    }
+
+    document.getElementById('reviewForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const subId = document.getElementById('reviewSubIdInput').value;
+      const body = {
+        status: document.getElementById('reviewStatusSelect').value,
+        admin_notes: document.getElementById('reviewNotesInput').value.trim()
+      };
+
+      const res = await fetch(`/api/submissions/${subId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+      if (res.ok) {
+        closeModal('reviewModal');
+        loadTasks();
+        loadSubmissions();
+        showToast('Review saved.');
+      }
+    });
+
+    // Global Search Debounce
+    let searchTimer = null;
+    const globalSearchInput = document.getElementById('globalSearchInput');
+    const searchDropdown = document.getElementById('searchDropdown');
+
+    globalSearchInput.addEventListener('input', (e) => {
+      clearTimeout(searchTimer);
+      const query = e.target.value.trim();
+      if (!query) {
+        searchDropdown.style.display = 'none';
+        return;
+      }
+      searchTimer = setTimeout(async () => {
+        const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+        const data = await res.json();
+        renderSearchResults(data);
+      }, 200);
+    });
+
+    function renderSearchResults(data) {
+      searchDropdown.innerHTML = '';
+      if (data.users.length === 0 && data.tasks.length === 0) {
+        searchDropdown.innerHTML = '<div style="padding:10px; font-size:12px; color:var(--text-muted);">No matching people or tasks.</div>';
+        searchDropdown.style.display = 'block';
+        return;
+      }
+
+      if (data.users.length > 0) {
+        searchDropdown.innerHTML += '<div class="search-section-title">👥 Team Members</div>';
+        data.users.forEach(u => {
+          searchDropdown.innerHTML += `
+            <div class="search-item">
+              <span style="font-weight:600;">${u.name} <code>(${u.employee_id || 'N/A'})</code></span>
+              <span style="font-size:11px; color:var(--text-secondary);">${u.email} • ${u.role.toUpperCase()}</span>
+            </div>
+          `;
+        });
+      }
+
+      if (data.tasks.length > 0) {
+        searchDropdown.innerHTML += '<div class="search-section-title">📝 Tasks</div>';
+        data.tasks.forEach(t => {
+          searchDropdown.innerHTML += `
+            <div class="search-item">
+              <span style="font-weight:600;">${t.title}</span>
+              <span style="font-size:11px; color:var(--text-secondary);">Assigned: ${t.assigned_employee_name} • ${t.status.toUpperCase()}</span>
+            </div>
+          `;
+        });
+      }
+
+      searchDropdown.style.display = 'block';
+    }
+
+    document.addEventListener('click', (e) => {
+      if (!document.getElementById('searchWrapper').contains(e.target)) {
+        searchDropdown.style.display = 'none';
+      }
+    });
+
+    // Handover Generator Presets & Handler
+    function applyPreset(type) {
+      document.querySelectorAll('.preset-chip').forEach(b => b.classList.remove('active'));
+      event?.target?.classList?.add('active');
+
+      if (type === 'busy') {
+        document.getElementById('shiftStart').value = '2026-09-03T14:00';
+        document.getElementById('shiftEnd').value = '2026-09-03T22:00';
+      } else if (type === 'quiet') {
+        document.getElementById('shiftStart').value = '2026-09-01T00:00';
+        document.getElementById('shiftEnd').value = '2026-09-01T08:00';
+      } else if (type === 'messy') {
+        document.getElementById('shiftStart').value = '2026-09-03T18:00';
+        document.getElementById('shiftEnd').value = '2026-09-03T23:59';
+      } else if (type === 'morning') {
+        document.getElementById('shiftStart').value = '2026-09-03T08:00';
+        document.getElementById('shiftEnd').value = '2026-09-03T16:00';
+      }
+    }
+
+    document.getElementById('generateHandoverBtn').addEventListener('click', async () => {
+      const start = document.getElementById('shiftStart').value;
+      const end = document.getElementById('shiftEnd').value;
+      const tz = document.getElementById('shiftTimezone').value;
+
+      const btn = document.getElementById('generateHandoverBtn');
+      btn.disabled = true;
+      btn.textContent = 'Generating...';
+
+      try {
+        const res = await fetch('/api/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ shift_start: start, shift_end: end, timezone: tz })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Failed');
+        currentHandoverData = data.note;
+        renderHandover(data);
+        showToast('Shift note generated and PDF ready!');
+      } catch (err) {
+        alert(err.message);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '⚡ Generate Handover Note';
+      }
+    });
+
+    function renderHandover(payload) {
+      const note = payload.note;
+      document.getElementById('execSummaryText').textContent = note.summary;
+      document.getElementById('downloadPdfBtn').href = payload.download_url;
+
+      renderHandoverSection('listCompleted', 'badgeCompleted', note.sections['Completed'] || []);
+      renderHandoverSection('listInProgress', 'badgeInProgress', note.sections['In Progress'] || []);
+      renderHandoverSection('listBlockers', 'badgeBlockers', note.sections['Blockers/Escalations'] || []);
+      renderHandoverSection('listWatchlist', 'badgeWatchlist', note.sections['Watch-List'] || []);
+
+      document.getElementById('handoverResultsArea').style.display = 'block';
+    }
+
+    function renderHandoverSection(listId, badgeId, items) {
+      const c = document.getElementById(listId);
+      const b = document.getElementById(badgeId);
+      c.innerHTML = '';
+      b.textContent = `${items.length} item${items.length === 1 ? '' : 's'}`;
+
+      if (items.length === 0) {
+        c.innerHTML = '<div style="color:var(--text-muted); font-style:italic;">• Nothing to report</div>';
+        return;
+      }
+
+      items.forEach(it => {
+        c.innerHTML += `
+          <div class="item-card">
+            <div style="font-weight:600; font-size:13px;">${it.item}</div>
+            <div style="display:flex; gap:8px; align-items:center; margin-top:4px;">
+              <span class="source-chip">${it.source}</span>
+              <span style="font-size:11px; color:var(--text-secondary);">UTC: ${it.timestamp_utc || ''}</span>
+              <button class="btn btn-secondary" style="margin-left:auto; padding:1px 6px; font-size:10px;" onclick="showTrace(${JSON.stringify(it.raw).replace(/"/g, '&quot;')})">🔍 Source Event</button>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function showTrace(raw) {
+      document.getElementById('modalJsonContent').textContent = JSON.stringify(raw, null, 2);
+      document.getElementById('traceModal').style.display = 'flex';
+    }
+
+    document.getElementById('copySlackBtn').addEventListener('click', () => {
+      if (currentHandoverData?.slack_markdown) {
+        navigator.clipboard.writeText(currentHandoverData.slack_markdown);
+        showToast('Copied Slack markdown note to clipboard!');
+      }
+    });
+
+    // Start App
+    checkAuth();
+  </script>
+</body>
+</html>

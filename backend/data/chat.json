@@ -1,0 +1,42 @@
+[
+  {
+    "id": "msg-001",
+    "source": "slack",
+    "timestamp": "2026-09-03T18:30:00-04:00",
+    "text": "Deploying hotfix v2.41.2 to payment cluster in us-east-1",
+    "user": "alice",
+    "channel": "#ops-deployments"
+  },
+  {
+    "id": "msg-002",
+    "source": "slack",
+    "timestamp": "2026-09-03T19:10:00+05:30",
+    "text": "DB migration scripts scheduled for 23:00 IST tonight — watch out for lock contention",
+    "user": "robert",
+    "channel": "#noc-alerts"
+  },
+  {
+    "id": "msg-003",
+    "source": "slack",
+    "timestamp": "2026-09-03T14:30:00Z",
+    "text": "Third-party Auth0 status dashboard showing elevated latencies in EU-West",
+    "user": "david",
+    "channel": "#war-room"
+  },
+  {
+    "id": "msg-004",
+    "source": "slack",
+    "timestamp": "2026-09-03T09:00:00Z",
+    "text": "Morning standup sync completed. All systems green.",
+    "user": "emma",
+    "channel": "#general-noc"
+  },
+  {
+    "id": "msg-005",
+    "source": "slack",
+    "timestamp": "2026-09-03T15:45:00Z",
+    "text": "Follow up on customer ticket OPS-4821 if mobile logins spike after 21:00",
+    "user": "sarah",
+    "channel": "#support-handover"
+  }
+]

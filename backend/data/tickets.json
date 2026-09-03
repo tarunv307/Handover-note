@@ -1,0 +1,101 @@
+[
+  {
+    "id": "OPS-4821",
+    "source": "jira",
+    "timestamp": "2026-09-03T19:42:00+05:30",
+    "summary": "Customer reported login failures on mobile app",
+    "status": "open",
+    "assignee": "john",
+    "priority": "high"
+  },
+  {
+    "id": "OPS-4822",
+    "source": "jira",
+    "timestamp": "2026-09-03T15:10:00+05:30",
+    "summary": "SSL Certificate renewal for auth.internal.company.com",
+    "status": "closed",
+    "assignee": "sarah",
+    "priority": "medium"
+  },
+  {
+    "id": "OPS-4823",
+    "source": "jira",
+    "timestamp": "2026-09-03T16:45:00+05:30",
+    "summary": "Redis cache node memory leak investigation",
+    "status": "in progress",
+    "assignee": "alex",
+    "priority": "high"
+  },
+  {
+    "id": "OPS-4824",
+    "source": "jira",
+    "timestamp": "2026-09-03T17:20:00+05:30",
+    "summary": "Database read-replica replication lag alert",
+    "status": "blocked",
+    "assignee": "dave",
+    "priority": "critical"
+  },
+  {
+    "id": "OPS-4825",
+    "source": "jira",
+    "timestamp": "2026-09-03T20:50:00+05:30",
+    "summary": "Billing webhook gateway 504 gateway timeout",
+    "status": "open",
+    "assignee": null,
+    "priority": "high"
+  },
+  {
+    "id": "OPS-4826",
+    "source": "jira",
+    "timestamp": "2026-09-03T21:15:00+05:30",
+    "summary": "Kubernetes ingress controller patch rollout",
+    "status": "done",
+    "assignee": "emily",
+    "priority": "medium"
+  },
+  {
+    "id": "OPS-4827",
+    "source": "jira",
+    "timestamp": "2026-09-03T10:00:00+05:30",
+    "summary": "Older morning ticket - User account lockouts",
+    "status": "resolved",
+    "assignee": "john",
+    "priority": "low"
+  },
+  {
+    "id": "OPS-4830",
+    "source": "jira",
+    "timestamp": "2026-09-03T18:30:00+05:30",
+    "summary": "Payment gateway latency spike (Initial report)",
+    "status": "open",
+    "assignee": "michael",
+    "priority": "high"
+  },
+  {
+    "id": "OPS-4830",
+    "source": "jira",
+    "timestamp": "2026-09-03T19:15:00+05:30",
+    "summary": "Payment gateway latency spike (Escalated to vendor)",
+    "status": "escalated",
+    "assignee": "michael",
+    "priority": "critical"
+  },
+  {
+    "id": "OPS-4830",
+    "source": "jira",
+    "timestamp": "2026-09-03T21:00:00+05:30",
+    "summary": "Payment gateway latency spike (Vendor fixed route, traffic normal)",
+    "status": "resolved",
+    "assignee": "michael",
+    "priority": "high"
+  },
+  {
+    "id": "OPS-4899",
+    "source": "jira",
+    "timestamp": "2026-09-04T03:00:00+05:30",
+    "summary": "Next day future ticket - DNS maintenance",
+    "status": "open",
+    "assignee": "sarah",
+    "priority": "low"
+  }
+]
