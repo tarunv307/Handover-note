@@ -18,6 +18,14 @@ class AppProvider with ChangeNotifier {
 
   Map<String, dynamic> _searchResults = {'users': <User>[], 'tasks': <TaskItem>[]};
 
+  String get serverUrl => _api.baseUrl;
+  void setServerUrl(String url) {
+    _api.setBaseUrl(url);
+    notifyListeners();
+  }
+
+  Future<bool> pingServer() => _api.pingServer();
+
   User? get currentUser => _currentUser;
   bool get isLoading => _isLoading;
   String? get errorMessage => _errorMessage;

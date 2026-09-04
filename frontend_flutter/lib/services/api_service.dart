@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import '../models/user.dart';
 import '../models/task.dart';
@@ -7,10 +8,19 @@ import '../models/submission.dart';
 import '../models/handover_note.dart';
 
 class ApiService {
-  final String baseUrl;
+  String baseUrl;
   Map<String, String> _cookies = {};
 
-  ApiService({this.baseUrl = 'http://localhost:5050'});
+  ApiService({String? initialBaseUrl})
+      : baseUrl = initialBaseUrl ?? (kIsWeb ? 'http://localhost:5050' : 'http://10.99.146.253:5050');
+
+  void setBaseUrl(String newUrl) {
+    String trimmed = newUrl.trim();
+    if (trimmed.endsWith('/')) {
+      trimmed = trimmed.substring(0, trimmed.length - 1);
+    }
+    baseUrl = trimmed;
+  }
 
   void _updateCookies(http.Response response) {
     String? rawCookie = response.headers['set-cookie'];
@@ -36,13 +46,25 @@ class ApiService {
     return headers;
   }
 
+  // Health check / ping
+  Future<bool> pingServer() async {
+    try {
+      final res = await http.get(Uri.parse('$baseUrl/api/health')).timeout(const Duration(seconds: 4));
+      return res.statusCode == 200;
+    } catch (_) {
+      return false;
+    }
+  }
+
   // Authentication
   Future<User?> login(String email, String password) async {
-    final response = await http.post(
-      Uri.parse('$baseUrl/api/login'),
-      headers: _getHeaders(),
-      body: jsonEncode({'email': email, 'password': password}),
-    );
+    final response = await http
+        .post(
+          Uri.parse('$baseUrl/api/login'),
+          headers: _getHeaders(),
+          body: jsonEncode({'email': email, 'password': password}),
+        )
+        .timeout(const Duration(seconds: 8));
     _updateCookies(response);
 
     if (response.statusCode == 200) {
@@ -55,13 +77,15 @@ class ApiService {
   }
 
   Future<void> logout() async {
-    await http.post(Uri.parse('$baseUrl/api/logout'), headers: _getHeaders());
+    try {
+      await http.post(Uri.parse('$baseUrl/api/logout'), headers: _getHeaders()).timeout(const Duration(seconds: 4));
+    } catch (_) {}
     _cookies.clear();
   }
 
   Future<User?> getCurrentUser() async {
     try {
-      final response = await http.get(Uri.parse('$baseUrl/api/me'), headers: _getHeaders());
+      final response = await http.get(Uri.parse('$baseUrl/api/me'), headers: _getHeaders()).timeout(const Duration(seconds: 4));
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         if (data['authenticated'] == true && data['user'] != null) {
@@ -75,7 +99,7 @@ class ApiService {
   // Users
   Future<List<User>> getUsers({String query = ''}) async {
     final url = query.isEmpty ? '$baseUrl/api/users' : '$baseUrl/api/users?q=${Uri.encodeComponent(query)}';
-    final response = await http.get(Uri.parse(url), headers: _getHeaders());
+    final response = await http.get(Uri.parse(url), headers: _getHeaders()).timeout(const Duration(seconds: 6));
     if (response.statusCode == 200) {
       final List list = jsonDecode(response.body);
       return list.map((u) => User.fromJson(u)).toList();
@@ -88,7 +112,7 @@ class ApiService {
       Uri.parse('$baseUrl/api/users'),
       headers: _getHeaders(),
       body: jsonEncode(userData),
-    );
+    ).timeout(const Duration(seconds: 6));
     if (response.statusCode == 201) {
       return User.fromJson(jsonDecode(response.body));
     }
@@ -97,7 +121,7 @@ class ApiService {
   }
 
   Future<void> deleteUser(int id) async {
-    final response = await http.delete(Uri.parse('$baseUrl/api/users/$id'), headers: _getHeaders());
+    final response = await http.delete(Uri.parse('$baseUrl/api/users/$id'), headers: _getHeaders()).timeout(const Duration(seconds: 6));
     if (response.statusCode != 200) {
       throw Exception('Failed to delete user');
     }
@@ -106,7 +130,7 @@ class ApiService {
   // Tasks
   Future<List<TaskItem>> getTasks({String? status}) async {
     final url = status != null ? '$baseUrl/api/tasks?status=$status' : '$baseUrl/api/tasks';
-    final response = await http.get(Uri.parse(url), headers: _getHeaders());
+    final response = await http.get(Uri.parse(url), headers: _getHeaders()).timeout(const Duration(seconds: 6));
     if (response.statusCode == 200) {
       final List list = jsonDecode(response.body);
       return list.map((t) => TaskItem.fromJson(t)).toList();
@@ -123,7 +147,7 @@ class ApiService {
         'description': description,
         'assigned_to': assignedTo,
       }),
-    );
+    ).timeout(const Duration(seconds: 6));
     if (response.statusCode == 201) {
       return TaskItem.fromJson(jsonDecode(response.body));
     }
@@ -142,7 +166,7 @@ class ApiService {
         request.fields['link'] = link;
       }
       request.files.add(await http.MultipartFile.fromPath('file', zipFile.path));
-      final streamedRes = await request.send();
+      final streamedRes = await request.send().timeout(const Duration(seconds: 20));
       final res = await http.Response.fromStream(streamedRes);
       if (res.statusCode != 200) {
         final err = jsonDecode(res.body);
@@ -153,7 +177,7 @@ class ApiService {
         uri,
         headers: _getHeaders(),
         body: jsonEncode({'link': link}),
-      );
+      ).timeout(const Duration(seconds: 8));
       if (response.statusCode != 200) {
         final err = jsonDecode(response.body);
         throw Exception(err['error'] ?? 'Submission failed');
@@ -169,7 +193,7 @@ class ApiService {
         'status': status,
         'admin_notes': adminNotes,
       }),
-    );
+    ).timeout(const Duration(seconds: 6));
     if (response.statusCode != 200) {
       throw Exception('Failed to review submission');
     }
@@ -180,7 +204,7 @@ class ApiService {
     final response = await http.get(
       Uri.parse('$baseUrl/api/search?q=${Uri.encodeComponent(query)}'),
       headers: _getHeaders(),
-    );
+    ).timeout(const Duration(seconds: 6));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       final users = (data['users'] as List).map((u) => User.fromJson(u)).toList();
@@ -200,7 +224,7 @@ class ApiService {
         'shift_end': end,
         'timezone': timezone,
       }),
-    );
+    ).timeout(const Duration(seconds: 15));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       return HandoverNote.fromJson(data, downloadUrl: '$baseUrl${data['download_url']}');
