@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: shiftops-backend
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -m backend.app
+    envVars:
+      - key: DATABASE_URL
+        value: postgresql://postgres.ajkqmjejxrsxzzqamvjj:143%40handove@aws-0-ap-southeast-2.pooler.supabase.com:6543/postgres
+      - key: PORT
+        value: 5050
+      - key: HOST
+        value: 0.0.0.0
+      - key: SECRET_KEY
+        generateValue: true
