@@ -39,156 +39,198 @@ class _HandoverScreenState extends State<HandoverScreen> {
     final note = provider.currentHandoverNote;
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Config Card
+          // Generation Settings Card
           Card(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            elevation: 1,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
             child: Padding(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Shift Handover Generator',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 16),
-                  Wrap(
-                    spacing: 16,
-                    runSpacing: 16,
+                  const Row(
                     children: [
-                      SizedBox(
-                        width: 240,
-                        child: TextField(
-                          controller: _startCtrl,
-                          decoration: const InputDecoration(
-                            labelText: 'Shift Start (ISO)',
-                            border: OutlineInputBorder(),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 240,
-                        child: TextField(
-                          controller: _endCtrl,
-                          decoration: const InputDecoration(
-                            labelText: 'Shift End (ISO)',
-                            border: OutlineInputBorder(),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 200,
-                        child: DropdownButtonFormField<String>(
-                          value: _timezone,
-                          decoration: const InputDecoration(
-                            labelText: 'Timezone',
-                            border: OutlineInputBorder(),
-                          ),
-                          items: const [
-                            DropdownMenuItem(value: 'Asia/Kolkata', child: Text('Asia/Kolkata (IST)')),
-                            DropdownMenuItem(value: 'UTC', child: Text('UTC')),
-                            DropdownMenuItem(value: 'America/New_York', child: Text('New York (EDT)')),
-                            DropdownMenuItem(value: 'Europe/London', child: Text('London (BST)')),
-                          ],
-                          onChanged: (val) {
-                            if (val != null) setState(() => _timezone = val);
-                          },
-                        ),
-                      ),
-                      ElevatedButton.icon(
-                        onPressed: provider.isLoading ? null : _generate,
-                        icon: const Icon(Icons.flash_on),
-                        label: const Text('Generate Note'),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF4F46E5),
-                          foregroundColor: Colors.white,
-                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-                        ),
+                      Icon(Icons.bolt_rounded, color: Color(0xFF4F46E5), size: 22),
+                      SizedBox(width: 8),
+                      Text(
+                        'Generate Shift Handover',
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                     ],
+                  ),
+                  const SizedBox(height: 14),
+                  TextField(
+                    controller: _startCtrl,
+                    decoration: InputDecoration(
+                      labelText: 'Shift Start (ISO)',
+                      hintText: '2026-09-03T14:00:00',
+                      isDense: true,
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  TextField(
+                    controller: _endCtrl,
+                    decoration: InputDecoration(
+                      labelText: 'Shift End (ISO)',
+                      hintText: '2026-09-03T22:00:00',
+                      isDense: true,
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  DropdownButtonFormField<String>(
+                    value: _timezone,
+                    isExpanded: true,
+                    decoration: InputDecoration(
+                      labelText: 'Timezone',
+                      isDense: true,
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                    ),
+                    items: const [
+                      DropdownMenuItem(value: 'Asia/Kolkata', child: Text('Asia/Kolkata (IST)')),
+                      DropdownMenuItem(value: 'UTC', child: Text('UTC (Universal)')),
+                      DropdownMenuItem(value: 'America/New_York', child: Text('New York (EDT)')),
+                      DropdownMenuItem(value: 'Europe/London', child: Text('London (BST)')),
+                    ],
+                    onChanged: (val) {
+                      if (val != null) setState(() => _timezone = val);
+                    },
+                  ),
+                  const SizedBox(height: 14),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      onPressed: provider.isLoading ? null : _generate,
+                      icon: provider.isLoading
+                          ? const SizedBox(
+                              width: 18,
+                              height: 18,
+                              child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
+                            )
+                          : const Icon(Icons.auto_awesome, size: 18),
+                      label: Text(provider.isLoading ? 'Generating...' : 'Generate Grounded Note'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF4F46E5),
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                      ),
+                    ),
                   ),
                 ],
               ),
             ),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 16),
 
           // Generated Note Display
           if (note != null) ...[
             Card(
+              elevation: 1,
               color: Colors.indigo.shade50,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Executive Shift Summary',
-                          style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF4F46E5)),
-                        ),
-                        Row(
-                          children: [
-                            TextButton.icon(
-                              icon: const Icon(Icons.copy, size: 16),
-                              label: const Text('Copy Slack Markdown'),
-                              onPressed: () {
-                                if (note.slackMarkdown != null) {
-                                  Clipboard.setData(ClipboardData(text: note.slackMarkdown!));
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(content: Text('Copied Slack markdown!')),
-                                  );
-                                }
-                              },
-                            ),
-                            if (note.downloadUrl != null)
-                              ElevatedButton.icon(
-                                icon: const Icon(Icons.picture_as_pdf, size: 16),
-                                label: const Text('Download PDF'),
-                                style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
-                                onPressed: () {
-                                  launchUrl(Uri.parse(note.downloadUrl!));
-                                },
-                              ),
-                          ],
-                        ),
-                      ],
+                    const Text(
+                      'Executive Shift Overview',
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Color(0xFF4F46E5)),
                     ),
                     const SizedBox(height: 8),
-                    Text(note.summary, style: const TextStyle(fontSize: 14)),
+                    Text(note.summary, style: const TextStyle(fontSize: 13, height: 1.4)),
+                    const SizedBox(height: 14),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: [
+                        OutlinedButton.icon(
+                          style: OutlinedButton.styleFrom(
+                            foregroundColor: const Color(0xFF4F46E5),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                          ),
+                          icon: const Icon(Icons.copy_rounded, size: 16),
+                          label: const Text('Copy Slack Note'),
+                          onPressed: () {
+                            if (note.slackMarkdown != null) {
+                              Clipboard.setData(ClipboardData(text: note.slackMarkdown!));
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('Copied Slack markdown!')),
+                              );
+                            }
+                          },
+                        ),
+                        if (note.downloadUrl != null)
+                          ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.redAccent,
+                              foregroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                            ),
+                            icon: const Icon(Icons.picture_as_pdf_rounded, size: 16),
+                            label: const Text('Export PDF'),
+                            onPressed: () {
+                              launchUrl(Uri.parse(note.downloadUrl!));
+                            },
+                          ),
+                      ],
+                    ),
                   ],
                 ),
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 12),
+
+            // 4 Grounded Sections
             ...note.sections.entries.map((entry) {
               final secTitle = entry.key;
               final items = entry.value;
 
+              Color sectionBadgeColor = Colors.green;
+              if (secTitle.contains('Progress')) sectionBadgeColor = Colors.blue;
+              if (secTitle.contains('Blockers')) sectionBadgeColor = Colors.red;
+              if (secTitle.contains('Watch')) sectionBadgeColor = Colors.purple;
+
               return Card(
-                margin: const EdgeInsets.only(bottom: 16),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                elevation: 1,
+                margin: const EdgeInsets.only(bottom: 12),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                 child: Padding(
-                  padding: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(14),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        '$secTitle (${items.length} items)',
-                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            secTitle,
+                            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                            decoration: BoxDecoration(
+                              color: sectionBadgeColor.withOpacity(0.12),
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: Text(
+                              '${items.length} items',
+                              style: TextStyle(color: sectionBadgeColor, fontSize: 10, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ],
                       ),
-                      const Divider(),
+                      const Divider(height: 16),
                       if (items.isEmpty)
                         const Text(
                           '• Nothing to report',
-                          style: TextStyle(fontStyle: FontStyle.italic, color: Colors.grey),
+                          style: TextStyle(fontStyle: FontStyle.italic, color: Colors.grey, fontSize: 12),
                         )
                       else
                         ...items.map((it) => Padding(
@@ -196,11 +238,11 @@ class _HandoverScreenState extends State<HandoverScreen> {
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const Text('• '),
+                                  const Text('• ', style: TextStyle(fontWeight: FontWeight.bold)),
                                   Expanded(
                                     child: RichText(
                                       text: TextSpan(
-                                        style: const TextStyle(color: Colors.black87, fontSize: 13),
+                                        style: const TextStyle(color: Colors.black87, fontSize: 12.5, height: 1.3),
                                         children: [
                                           TextSpan(text: it.item),
                                           TextSpan(

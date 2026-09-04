@@ -29,31 +29,39 @@ class _EmployeeDashboardState extends State<EmployeeDashboard> with SingleTicker
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text('Submit Work: ${task.title}'),
-        content: SizedBox(
-          width: 440,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text(
-                'Provide your GitHub pull request / repository URL, Google Drive folder, or deployment link:',
-                style: TextStyle(fontSize: 13, color: Colors.grey),
-              ),
-              const SizedBox(height: 14),
-              TextField(
-                controller: linkCtrl,
-                decoration: const InputDecoration(
-                  labelText: 'Work / Submission Link *',
-                  hintText: 'https://github.com/org/repo/pull/123',
-                  border: OutlineInputBorder(),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: Text('Submit: ${task.title}', overflow: TextOverflow.ellipsis),
+        content: SingleChildScrollView(
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width * 0.85,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Paste your work link (GitHub PR, Drive folder, Figma, or repo):',
+                  style: TextStyle(fontSize: 12, color: Colors.grey),
                 ),
-              ),
-            ],
+                const SizedBox(height: 12),
+                TextField(
+                  controller: linkCtrl,
+                  decoration: const InputDecoration(
+                    labelText: 'Submission URL *',
+                    hintText: 'https://github.com/company/repo/pull/123',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
         actions: [
           TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Cancel')),
           ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF4F46E5),
+              foregroundColor: Colors.white,
+            ),
             onPressed: () async {
               if (linkCtrl.text.trim().isEmpty) return;
               final success = await context.read<AppProvider>().submitTask(
@@ -63,7 +71,7 @@ class _EmployeeDashboardState extends State<EmployeeDashboard> with SingleTicker
               if (success && mounted) {
                 Navigator.pop(ctx);
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Work submitted successfully!')),
+                  const SnackBar(content: Text('✅ Work submitted successfully!')),
                 );
               }
             },
@@ -81,82 +89,130 @@ class _EmployeeDashboardState extends State<EmployeeDashboard> with SingleTicker
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Welcome, ${user?.name} (EMP ID: ${user?.employeeId ?? "N/A"})'),
+        backgroundColor: const Color(0xFF4F46E5),
+        foregroundColor: Colors.white,
+        elevation: 0,
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(user?.name ?? 'Shift Engineer', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+            Text('ID: ${user?.employeeId ?? "EMP-101"} • Employee Portal', style: const TextStyle(fontSize: 11, color: Colors.white70)),
+          ],
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),
+            tooltip: 'Sign Out',
             onPressed: () => provider.logout(),
           ),
         ],
         bottom: TabBar(
           controller: _tabController,
+          labelColor: Colors.white,
+          unselectedLabelColor: Colors.white60,
+          indicatorColor: Colors.white,
           tabs: const [
-            Tab(icon: Icon(Icons.assignment), text: 'My Assigned Tasks'),
-            Tab(icon: Icon(Icons.note_alt), text: 'Shift Handover Notes'),
+            Tab(icon: Icon(Icons.assignment_outlined), text: 'My Tasks'),
+            Tab(icon: Icon(Icons.description_outlined), text: 'Shift Handover'),
           ],
         ),
       ),
       body: TabBarView(
         controller: _tabController,
         children: [
-          // Tasks Tab
+          // 1. My Tasks Tab
           Padding(
-            padding: const EdgeInsets.all(24),
+            padding: const EdgeInsets.all(16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Your Assigned Work Items', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                const SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Assigned Tasks (${provider.tasks.length})', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                    IconButton(
+                      icon: const Icon(Icons.refresh, size: 20),
+                      onPressed: () => provider.fetchTasks(),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
                 Expanded(
                   child: provider.tasks.isEmpty
-                      ? const Center(child: Text('No tasks currently assigned to you.'))
-                      : ListView.builder(
+                      ? const Center(
+                          child: Text('No tasks assigned to you right now.', style: TextStyle(color: Colors.grey)),
+                        )
+                      : ListView.separated(
                           itemCount: provider.tasks.length,
+                          separatorBuilder: (_, __) => const SizedBox(height: 10),
                           itemBuilder: (ctx, idx) {
                             final t = provider.tasks[idx];
+                            Color statusColor = Colors.orange;
+                            if (t.status == 'completed') statusColor = Colors.green;
+                            if (t.status == 'submitted') statusColor = Colors.blue;
+
                             return Card(
-                              margin: const EdgeInsets.only(bottom: 12),
+                              elevation: 1,
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                               child: Padding(
-                                padding: const EdgeInsets.all(16),
+                                padding: const EdgeInsets.all(14),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Expanded(
-                                          child: Text(t.title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                                          child: Text(t.title, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
                                         ),
-                                        Chip(label: Text(t.status.toUpperCase())),
+                                        Container(
+                                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                                          decoration: BoxDecoration(
+                                            color: statusColor.withOpacity(0.12),
+                                            borderRadius: BorderRadius.circular(6),
+                                          ),
+                                          child: Text(
+                                            t.status.toUpperCase(),
+                                            style: TextStyle(color: statusColor, fontSize: 10, fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
                                       ],
                                     ),
-                                    const SizedBox(height: 8),
-                                    Text(t.description ?? 'No description provided.', style: const TextStyle(color: Colors.black87)),
+                                    const SizedBox(height: 6),
+                                    Text(t.description ?? 'No description provided.', style: const TextStyle(fontSize: 13, color: Colors.black87)),
                                     const SizedBox(height: 12),
                                     if (t.submission != null) ...[
                                       Container(
+                                        width: double.infinity,
                                         padding: const EdgeInsets.all(10),
                                         decoration: BoxDecoration(
-                                          color: Colors.grey.shade100,
+                                          color: const Color(0xFFF1F5F9),
                                           borderRadius: BorderRadius.circular(8),
                                         ),
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Text('Submitted Link: ${t.submission?.link ?? ""}'),
-                                            if (t.submission?.adminNotes != null)
+                                            Text('Submitted: ${t.submission?.link ?? "File uploaded"}', style: const TextStyle(fontSize: 12)),
+                                            if (t.submission?.adminNotes != null) ...[
+                                              const SizedBox(height: 4),
                                               Text(
-                                                'Admin Feedback: ${t.submission?.adminNotes}',
-                                                style: const TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
+                                                'Admin Note: ${t.submission?.adminNotes}',
+                                                style: const TextStyle(fontSize: 12, color: Colors.green, fontWeight: FontWeight.bold),
                                               ),
+                                            ],
                                           ],
                                         ),
                                       ),
                                     ] else ...[
-                                      Align(
-                                        alignment: Alignment.centerRight,
+                                      SizedBox(
+                                        width: double.infinity,
                                         child: ElevatedButton.icon(
-                                          icon: const Icon(Icons.upload),
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: const Color(0xFF4F46E5),
+                                            foregroundColor: Colors.white,
+                                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                                          ),
+                                          icon: const Icon(Icons.upload_file, size: 18),
                                           label: const Text('Submit Work'),
                                           onPressed: () => _showSubmitDialog(t),
                                         ),
@@ -173,7 +229,7 @@ class _EmployeeDashboardState extends State<EmployeeDashboard> with SingleTicker
             ),
           ),
 
-          // Handover Screen Tab
+          // 2. Handover Screen Tab
           const HandoverScreen(),
         ],
       ),
